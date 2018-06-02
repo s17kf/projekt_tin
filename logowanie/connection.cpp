@@ -5,9 +5,9 @@
 #include "connection.h"
 
 
-Connection::Connection() {
+Connection::Connection(int port) {
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(PORT_NR);
+    serverAddr.sin_port = htons(port);
     serverAddr.sin_addr.s_addr = INADDR_ANY;
 
     socketDesc = socket(serverAddr.sin_family, SOCK_STREAM, IPPROTO_TCP);
@@ -34,18 +34,20 @@ Connection::~Connection(){
 int Connection::connect() {
 
     socklen_t clientLen = sizeof(client);
+    std::cout<<"waiting for connection"<<std::endl;
     clientSocket = accept(socketDesc, (struct sockaddr *) &client, &clientLen);
+    std::cout<<"something connected"<<std::endl;
 
     return clientSocket;
 
 }
 
 ssize_t Connection::send(Packet *packet, Sesskey *sesskey) {
-    return packet->send(socketDesc, sesskey);
+    return packet->send(clientSocket, sesskey);
 }
 
 Packet* Connection::receive(Sesskey *sesskey) {
-    return Packet::packetFactory(socketDesc, sesskey);
+    return Packet::packetFactory(clientSocket, sesskey);
 }
 
 

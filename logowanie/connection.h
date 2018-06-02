@@ -23,7 +23,7 @@ class Connection {
 
 public:
 
-    Connection();
+    Connection(int port);
     ~Connection();
     int connect();
 

@@ -5,7 +5,7 @@
 #ifndef LOGOWANIE_CONSTS_H
 #define LOGOWANIE_CONSTS_H
 
-#define PORT_NR 4004
+#define PORT_NR 4003
 #define MAX_CONNECTIONS 10
 #define MAX_MSG_LEN 100
 
