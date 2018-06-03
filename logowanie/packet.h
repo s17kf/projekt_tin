@@ -12,7 +12,7 @@
 #include "sesskey.h"
 
 class Sesskey;
-
+class AndroidClient;
 
 class Packet {
 protected:
@@ -25,6 +25,7 @@ protected:
 
 public:
     static Packet * packetFactory(int soc_desc, const Sesskey *sesskey);
+    static Packet *packetFactory(int soc_desc, const AndroidClient *androidClient);
 
     virtual ssize_t send(int soc_desc, const Sesskey *sesskey) const = 0;
 
@@ -40,6 +41,8 @@ protected:
     EncrptedPacket(const unsigned char *buf, uint32_t buf_len): Packet(buf, buf_len){}
     EncrptedPacket(size_t size): Packet(size){}
 public:
+    unsigned char *getBuf(){ return buf;}
+    uint32_t getBufSize(){ return buf_size;}
     ssize_t send(int soc_desc, const Sesskey *sesskey) const override ;
 };
 
@@ -117,6 +120,28 @@ public:
     SSID(unsigned char value);
 };
 
+
+class EncryptedPacketWithSSID : public EncrptedPacket{
+public:
+    unsigned char getSSIDValue();
+    Packet *getEncryptedPacket();
+
+    /*
+     * *buf contain both SSID and Encrypted packet part
+     * buf_len *buf len
+    */
+    EncryptedPacketWithSSID(unsigned char *buf, uint32_t buf_len) : EncrptedPacket(buf, buf_len){}
+    EncryptedPacketWithSSID(unsigned char ssid_value, EncrptedPacket *encrypted_packet);
+
+
+};
+
+class EOT : public EncrptedPacket {
+public:
+    //EOT(Packet &&packet);
+    EOT(unsigned char *buf): EncrptedPacket(buf, 1) {}
+    EOT();
+};
 
 
 

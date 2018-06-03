@@ -8,6 +8,8 @@
 #include "packet.h"
 #include "consts.h"
 #include "log.h"
+#include "androidClient.h"
+
 
 int readTillDone(int soc_desc, unsigned char *buf, ssize_t msg_size) {
     ssize_t i = 0;
@@ -21,7 +23,7 @@ int readTillDone(int soc_desc, unsigned char *buf, ssize_t msg_size) {
                 std::cout <<"Reading error (packet.cpp, l20) 273"<< strerror(errno);
                 return -1;
             case 0:
-//                log(3, "Client socket have been closed");
+                log(3, "Client socket have been closed");
                 std::cout << "readTillDone: " << strerror(errno);
                 return 0;
         }
@@ -75,10 +77,9 @@ Packet* Packet::packetFactory(int soc_desc, const Sesskey *sesskey) {
     uint32_t plain_len;
     unsigned char is_crypted;
     unsigned char *new_buf;
-//    std::cout<<"packet.cpp l 73"<<std::endl;
+
     if(readTillDone(soc_desc, (unsigned char *) &plain_len, sizeof(plain_len)) < 1)
         return nullptr;
-//    std::cout<<"len readed (packet.cpp 76)"<<std::endl;
     if(readTillDone(soc_desc, &is_crypted, 1) < 1)
         return nullptr;
 
@@ -130,8 +131,113 @@ Packet* Packet::packetFactory(int soc_desc, const Sesskey *sesskey) {
             new_packet = new LOG(new_buf);
             break;
         case PCK_SSID:
-            new_packet = new SSID(new_buf);
+            if(!is_crypted) {
+                new_packet = new SSID(new_buf);
+            }else{
+                EncryptedPacketWithSSID *temp_packet = new EncryptedPacketWithSSID(new_buf, expected_size);
+                new_packet = temp_packet->getEncryptedPacket();
+
+            }
             break;
+        case PCK_EOT:
+        case PCK_DESC:
+        case PCK_VAL:
+        case PCK_GET:
+        case PCK_SET:
+        case PCK_SERVICES:
+        default:
+            std::cout<<"wrong packet received :("<<std::endl;
+
+
+    }
+
+    delete[] new_buf;
+    return new_packet;
+
+}
+
+Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) {
+    Packet *new_packet;
+    int expected_size;
+    unsigned char *encrypted;
+    uint32_t plain_len;
+    unsigned char is_crypted;
+    unsigned char *new_buf;
+
+    if(readTillDone(soc_desc, (unsigned char *) &plain_len, sizeof(plain_len)) < 1)
+        return nullptr;
+    if(readTillDone(soc_desc, &is_crypted, 1) < 1)
+        return nullptr;
+//    std::cout<<"tu jestem"<<std::endl;
+
+    if(is_crypted){
+        if(androidClient->getSesskey() == nullptr) {
+            printf("Received encrypted message before setting session key.\n");
+            exit(23);
+        }
+        expected_size = encryptedLen(plain_len);
+    }else{
+        std::cout<<"TODO: Not encrypted for now error"<<std::endl;
+        //TODO: when more than one client will be
+        expected_size = plain_len;
+    }
+
+
+    new_buf = new unsigned char [plain_len + 16];
+    encrypted = new unsigned char [expected_size];
+//    std::cout<<"tu jestem1"<<std::endl;
+    if(readTillDone(soc_desc, encrypted, expected_size) < 1)
+        return nullptr;
+//    std::cout<<"tu jestem2"<<std::endl;
+
+    if(is_crypted) {
+//        std::cout<<"tu jestem21"<<std::endl;
+        androidClient->getSesskey()->decrypt(new_buf, encrypted, expected_size);
+        log(4, "Received encrypted packet, plaintext length = %d, encrpypted length = %d.",
+            plain_len, encryptedLen(plain_len));
+    } else{
+        //TODO: check if packed should be encrypted
+        memcpy(new_buf, encrypted, expected_size);
+    }
+
+//    std::cout<<"tu jestem3"<<std::endl;
+
+    delete[] encrypted;
+
+    switch(new_buf[0]){
+        case PCK_ACK:
+            new_packet = new ACK(new_buf);
+            break;
+        case PCK_NAK:
+            new_packet = new NAK(new_buf);
+            break;
+        case PCK_CHALL:
+            new_packet= CHALL::createFromMessage(new_buf);
+            break;
+        case PCK_CHALL_RESP:
+            new_packet = CHALL_RESP::createFromMessage(new_buf);
+            break;
+        case PCK_KEY:
+            new_packet = KEY::createFromMessage(new_buf);
+            break;
+        case PCK_LOG:
+            new_packet = new LOG(new_buf);
+            break;
+        case PCK_SSID:
+            if(!is_crypted) {
+                new_packet = new SSID(new_buf);
+            }else{
+                EncryptedPacketWithSSID *temp_packet = new EncryptedPacketWithSSID(new_buf, expected_size);
+                new_packet = temp_packet->getEncryptedPacket();
+
+            }
+            break;
+        case PCK_EOT:
+        case PCK_DESC:
+        case PCK_VAL:
+        case PCK_GET:
+        case PCK_SET:
+        case PCK_SERVICES:
         default:
             std::cout<<"wrong packet received :("<<std::endl;
 
@@ -258,13 +364,53 @@ const unsigned char* KEY::getKeyBuf() const {
 }
 
 
+EncryptedPacketWithSSID::EncryptedPacketWithSSID(unsigned char ssid_value, EncrptedPacket *encrypted_packet) : \
+ EncrptedPacket(encrypted_packet->getBufSize() + 2){
+    buf[0] = PCK_SSID;
+    buf[1] = ssid_value;
+    memcpy(&buf[2], encrypted_packet->getBuf(), encrypted_packet->getBufSize());
+}
 
+unsigned char EncryptedPacketWithSSID::getSSIDValue() {
+    return buf[1];
+}
 
+Packet* EncryptedPacketWithSSID::getEncryptedPacket() {
+    Packet *encrypted_packet;
+    switch( buf[2] ){
+        case PCK_ACK:
+            encrypted_packet = new ACK(buf[2]);
+            break;
+        case PCK_NAK:
+            encrypted_packet = new NAK(buf[2]);
+            break;
+        case PCK_EOT:
+            encrypted_packet = new EOT(buf);
+        case PCK_DESC:
+        case PCK_VAL:
+        case PCK_GET:
+        case PCK_SET:
+        case PCK_SERVICES:
+        case PCK_LOG:
+//            encrypted_packet = new LOG(&buf[2]);
+//            break;
+        case PCK_SSID:
+//            if(!is_crypted) {
+//                encrypted_packet = new SSID(new_buf);
+//            }else{
+//
+//
+//            }
+//            break;
+        default:
+            std::cout<<"Bad packet id: "<<buf[2]<<std::endl;
+    }
+    return encrypted_packet;
+}
 
-
-
-
-
+EOT::EOT(): EncrptedPacket(1) {
+    buf[0] = PCK_EOT;
+}
 
 
 

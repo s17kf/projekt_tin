@@ -6,34 +6,33 @@
 #include "RNG.h"
 #include "privkey.h"
 #include "sesskey.h"
+#include "androidClient.h"
+#include "log.h"
 
-int logIn(Connection *connection, Privkey *privkey){
+int logIn(Connection *connection, Privkey *privkey,Sesskey *sesskey, unsigned char *ssid_val){
     RNG rng;
 
-
-    Packet *packet = connection->receive(nullptr);
-
+    /*receiving CHALL */
+    Packet *packet = connection->receive((Sesskey *)nullptr);
     if(packet == nullptr){
         std::cout<<"nullptr main.cpp l14, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
         exit(1);
     }
-
     unsigned char chall_value[8];
     if(CHALL * chall = dynamic_cast<CHALL *>(packet)){
         memcpy(chall_value, chall->getChall(), 8);
 
         printf("chall received: ");
         for(int i=0;i<8;++i){
-//            printf("%x", chall_value);
             std::cout<<std::hex<<chall_value[i];
         }
-//        printf("\n");
         std::cout<<std::endl;
     }else{
         std::cout<<"invslid type main.cpp l31, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
         exit(1);
     }
 
+    /*encrypting CHALL and sending CHALL_RESP */
     unsigned char encrypted[256];
     privkey->encrypt(chall_value, 8, encrypted);
     CHALL_RESP *chall_resp = CHALL_RESP::createFromEncrypted(encrypted);
@@ -41,17 +40,17 @@ int logIn(Connection *connection, Privkey *privkey){
     std::cout<<"response sended"<<std::endl;
     delete chall_resp;
 
-    packet = connection->receive(nullptr);
-
+    /*receiving KEY */
+    packet = connection->receive((Sesskey *)nullptr);
     if(packet == nullptr){
         std::cout<<"nullptr KEY main.cpp l46, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
         exit(1);
     }
     unsigned char key_encrypted[256];
-    unsigned char session_key[16];
+//    unsigned char session_key[16];
     KEY *key;
     if( key = dynamic_cast<KEY *>(packet)){
-        memcpy(chall_value, key->getKeyBuf(), 256);
+        memcpy(key_encrypted, key->getKeyBuf(), 256);
 
         std::cout<<"key received"<<std::endl;
 
@@ -59,22 +58,26 @@ int logIn(Connection *connection, Privkey *privkey){
         std::cout<<"invslid type main.cpp l56, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
         exit(1);
     }
-    Sesskey *sesskey = new Sesskey(*key,*privkey);
-
+//    Sesskey *sesskey = new Sesskey(*key,*privkey);
+    sesskey = new Sesskey( *key, *privkey);
     std::cout<<"session key encrypted"<<std::endl;
 
 
-
-    ACK *ack = new ACK((unsigned char)0);
-    connection->send(ack, sesskey);
-
-    std::cout<<"ack sent"<<std::endl;
-    delete ack;
-
+    /*SSID generating and sending */
+    unsigned char ssid_value;
+    rng.generate(&ssid_value, 1);
+    SSID * ssid = new SSID(ssid_value);
+    connection->send(ssid, sesskey);
 
 
+    memcpy(ssid_val, &ssid_value, 1);
+
+    std::cout<<"ssid sent, ssid value: "<<ssid_value<<std::endl;
+
+
+
+    /*LOG (login and password) receiving */
     packet = connection->receive(sesskey);
-
     if(packet == nullptr){
         std::cout<<"nullptr login main.cpp l46, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
         exit(1);
@@ -94,36 +97,76 @@ int logIn(Connection *connection, Privkey *privkey){
         exit(1);
     }
 
+
     //TODO: check if user(login, password) exist;
 
-    unsigned char ssid_value;
-    rng.generate(&ssid_value, 1);
-    SSID * ssid = new SSID(ssid_value);
-    connection->send(ssid, sesskey);
 
-    std::cout<<"ssid sent, ssid value: "<<ssid_value<<std::endl;
+    /*sending ACK after sesskey received */
+    ACK *ack = new ACK((unsigned char)0);
+    connection->send(ack, sesskey);
+    std::cout<<"ack sent"<<std::endl;
+    delete ack;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     delete ssid;
-
-
-    packet = connection->receive(sesskey);
-//    std::cout<<"a tu?"<<std::endl;
-    if(packet == nullptr){
-        std::cout<<"nullptr main.cpp l71, #ERROR: "<<errno<<" "<<strerror(errno)<<std::endl;
-        exit(12);
-    }
-    //unsigned char response[256];
-    if(ack = dynamic_cast<ACK *>(packet)){
-        std::cout<<"ack received, ack id: "<<(char)ack->getId()<<std::endl;
-    }else{
-        std::cout<<"invalid type main.cpp l78, #ERROR: "<<errno<<" "<<strerror(errno)<<std::endl;
-        exit(12);
-    }
-
-
+    delete key;
+    delete log;
 
 
     return 0;
 
+}
+
+int choseSequence(Connection *connection, Privkey *privkey, AndroidClient *androidClient){
+    Packet *packet;
+
+//    std::cout<<"ssid value: "<<androidClient->getSsidValue()<<std::endl;
+
+
+//    std::cout<<"tu jestem31"<<std::endl;
+    packet = connection->receive(androidClient->getSesskey());
+//    std::cout<<"tu jestem32"<<std::endl;
+    if(packet == nullptr){
+        std::cout<<"nullptr main.cpp l136, #ERROR: "<<errno<<" "<<strerror(errno)<<std::endl;
+        exit(12);
+    }
+
+    if(EOT *eot = dynamic_cast<EOT *>(packet)){
+        std::cout<<"eot received "<<std::endl;
+    }else{
+        std::cout<<"invalid type main.cpp l143, #ERROR: "<<errno<<" "<<strerror(errno)<<std::endl;
+        exit(12);
+    }
+
+
+
+    ACK *ack = new ACK((unsigned char)'3');
+    EncryptedPacketWithSSID *packetToSend;
+    packetToSend = new EncryptedPacketWithSSID(androidClient->getSsidValue(),ack);
+    connection->send(packetToSend, androidClient->getSesskey());
+
+    std::cout<<"ack sent"<<std::endl;
+    delete ack;
+
+
+
+    delete packetToSend;
+
+    return 0;
 }
 
 int main(int argc, char **argv) {
@@ -133,10 +176,18 @@ int main(int argc, char **argv) {
         exit(12);
     }
 
+    std::string logfile = "/home/s17kf/Dokumenty/logfileServer.log";
+    initLog(logfile, 2);
+
+
     Connection *connection = new Connection(atoi(argv[1]));
 
     Privkey *privkey = new Privkey("/home/s17kf/Pobrane/serwer_key-private.pem");
+    Sesskey sesskey;
 
+    AndroidClient androidClient;
+    unsigned char ssid_value;
+    unsigned char sesskey_encrypted[256];
 
 
     if(connection->connect() <0){
@@ -145,7 +196,33 @@ int main(int argc, char **argv) {
     }
 //    sleep(1);
 
-    logIn(connection, privkey);
+    logIn(connection, privkey, &sesskey, &ssid_value);
+
+//    std::cout<<"logged"<<std::endl;
+//
+//    std::cout<<ssid_value<<std::endl<<sesskey_encrypted<<std::endl;
+//
+//    std::cout<<"logged1"<<std::endl;
+
+//    androidClient = new AndroidClient(sesskey_encrypted, privkey, ssid_value);
+   // androidClient = new AndroidClient(sesskey, privkey, ssid_value);
+    androidClient.setSesskey(sesskey);
+    androidClient.setSssid(ssid_value);
+
+    std::cout<<"logged2"<<std::endl;
+
+    connection->endClientConnection();
+
+    if(connection->connect() <0){
+        std::cout<<"connecting error, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
+        exit(1);
+    }
+
+//    sleep(1);
+    choseSequence(connection, privkey, &androidClient);
+
+
+
 
 
     delete connection;

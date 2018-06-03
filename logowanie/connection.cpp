@@ -50,6 +50,15 @@ Packet* Connection::receive(Sesskey *sesskey) {
     return Packet::packetFactory(clientSocket, sesskey);
 }
 
+Packet* Connection::receive(AndroidClient *androidClient) {
+    return Packet::packetFactory(clientSocket, androidClient);
+}
+
+
+
+void Connection::endClientConnection() {
+    shutdown(clientSocket, SHUT_RDWR);
+}
 
 
 

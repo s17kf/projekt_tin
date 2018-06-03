@@ -60,6 +60,7 @@ int Sesskey::encrypt(unsigned char *dest, const unsigned char *src, size_t src_s
     ciphertext_len += len;
     memcpy(dest + ciphertext_len, iv, 16);
     ciphertext_len += 16;
+    log(5,"Encrypted bytes: %d, from: %d",ciphertext_len,src_size);
 
     return ciphertext_len;
 }

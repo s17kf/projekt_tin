@@ -25,10 +25,13 @@ public:
 
     Connection(int port);
     ~Connection();
+
+    void endClientConnection();
     int connect();
 
     ssize_t send (Packet *packet, Sesskey * sesskey);
     Packet* receive(Sesskey *sesskey);
+    Packet* receive(AndroidClient *androidClient);
 
 
     ssize_t send(uint32_t value);
