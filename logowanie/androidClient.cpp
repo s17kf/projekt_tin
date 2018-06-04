@@ -22,7 +22,7 @@ AndroidClient::AndroidClient(Sesskey session_key, Privkey *privkey, unsigned cha
 //    return ssid;
 //}
 
-unsigned char AndroidClient::getSsidValue() {
+unsigned char AndroidClient::getSsidValue() const{
     return ssidValue;
 }
 

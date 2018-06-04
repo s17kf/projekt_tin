@@ -5,6 +5,8 @@
 #ifndef LOGOWANIE_CONSTS_H
 #define LOGOWANIE_CONSTS_H
 
+#include <iostream>
+
 #define PORT_NR 4003
 #define MAX_CONNECTIONS 10
 #define MAX_MSG_LEN 100
@@ -23,5 +25,7 @@
 #define PCK_SSID 0x0B
 #define PCK_LOG 0x0C
 #define PCK_SERVICES 0x0D
+
+void hex_print(const void* pv, size_t len);
 
 #endif //LOGOWANIE_CONSTS_H

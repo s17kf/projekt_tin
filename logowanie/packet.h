@@ -31,6 +31,9 @@ public:
 
     virtual ~Packet();
 
+    unsigned char *getBuf(){ return buf;}
+    uint32_t getBufSize(){ return buf_size;}
+
 
 
 };
@@ -41,8 +44,6 @@ protected:
     EncrptedPacket(const unsigned char *buf, uint32_t buf_len): Packet(buf, buf_len){}
     EncrptedPacket(size_t size): Packet(size){}
 public:
-    unsigned char *getBuf(){ return buf;}
-    uint32_t getBufSize(){ return buf_size;}
     ssize_t send(int soc_desc, const Sesskey *sesskey) const override ;
 };
 
@@ -121,17 +122,19 @@ public:
 };
 
 
-class EncryptedPacketWithSSID : public EncrptedPacket{
+class EncryptedPacketWithSSID : public Packet{
 public:
-    unsigned char getSSIDValue();
+    ssize_t send(int soc_desc, const Sesskey *sesskey) const override ;
+    unsigned char getSsidValue();
     Packet *getEncryptedPacket();
 
     /*
      * *buf contain both SSID and Encrypted packet part
      * buf_len *buf len
     */
-    EncryptedPacketWithSSID(unsigned char *buf, uint32_t buf_len) : EncrptedPacket(buf, buf_len){}
-    EncryptedPacketWithSSID(unsigned char ssid_value, EncrptedPacket *encrypted_packet);
+    EncryptedPacketWithSSID(unsigned char *buf, uint32_t buf_len) : Packet(buf, buf_len){}
+    EncryptedPacketWithSSID(unsigned char ssid_value, Packet *encrypted_packet);
+
 
 
 };

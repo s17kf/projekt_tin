@@ -171,11 +171,21 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
 //    std::cout<<"tu jestem"<<std::endl;
 
     if(is_crypted){
-        if(androidClient->getSesskey() == nullptr) {
-            printf("Received encrypted message before setting session key.\n");
-            exit(23);
+//        if(androidClient->getSesskey() == nullptr) {
+//            printf("Received encrypted message before setting session key.\n");
+//            exit(23);
+//        }
+        unsigned char ssid_buf[2];
+        if(readTillDone(soc_desc, ssid_buf, 2) < 1)
+            return nullptr;
+        SSID *ssid = new SSID(ssid_buf);
+        //TODO: find proper ssid in existing android clients
+        if(ssid->getValue() != androidClient->getSsidValue()){
+            std::cout<<"bad ssid received (packet.cpp l184)"<<std::endl;
+            exit(21);
         }
-        expected_size = encryptedLen(plain_len);
+
+        expected_size = encryptedLen(plain_len-2);
     }else{
         std::cout<<"TODO: Not encrypted for now error"<<std::endl;
         //TODO: when more than one client will be
@@ -223,21 +233,15 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
         case PCK_LOG:
             new_packet = new LOG(new_buf);
             break;
-        case PCK_SSID:
-            if(!is_crypted) {
-                new_packet = new SSID(new_buf);
-            }else{
-                EncryptedPacketWithSSID *temp_packet = new EncryptedPacketWithSSID(new_buf, expected_size);
-                new_packet = temp_packet->getEncryptedPacket();
-
-            }
-            break;
         case PCK_EOT:
+            new_packet = new EOT(new_buf);
+            break;
         case PCK_DESC:
         case PCK_VAL:
         case PCK_GET:
         case PCK_SET:
         case PCK_SERVICES:
+        case PCK_SSID:
         default:
             std::cout<<"wrong packet received :("<<std::endl;
 
@@ -266,6 +270,29 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     delete[] encrypted;
     return ret;
 }
+
+ssize_t EncryptedPacketWithSSID::send(int soc_desc, const Sesskey *sesskey) const {
+    unsigned char *encrypted;
+    ssize_t ret;
+    unsigned char boolean = (unsigned char) true;
+    int32_t encrypted_size = encryptedLen(buf_size-2);
+    encrypted = new unsigned char[encrypted_size];
+    sesskey->encrypt(encrypted, &buf[2], buf_size-2);
+    ret = writeTillDone(soc_desc, (unsigned char *) &buf_size, sizeof(buf_size));
+    if(ret<=0)
+        return ret;
+    ret = writeTillDone(soc_desc, &boolean, sizeof(unsigned char));
+    if(ret <= 0)
+        return ret;
+    ret = writeTillDone(soc_desc, buf, sizeof(unsigned char) * 2);
+    if(ret<=0)
+        return ret;
+    ret = writeTillDone(soc_desc, encrypted, encrypted_size);
+    delete[] encrypted;
+    return ret;
+}
+
+
 ssize_t PlainPacket::send(int sock_desc, const Sesskey *sesskey) const {
     ssize_t ret;
     unsigned char boolean = (unsigned char) false;
@@ -364,14 +391,14 @@ const unsigned char* KEY::getKeyBuf() const {
 }
 
 
-EncryptedPacketWithSSID::EncryptedPacketWithSSID(unsigned char ssid_value, EncrptedPacket *encrypted_packet) : \
- EncrptedPacket(encrypted_packet->getBufSize() + 2){
+EncryptedPacketWithSSID::EncryptedPacketWithSSID(unsigned char ssid_value, Packet *encrypted_packet) : \
+ Packet(encrypted_packet->getBufSize() + 2){
     buf[0] = PCK_SSID;
     buf[1] = ssid_value;
     memcpy(&buf[2], encrypted_packet->getBuf(), encrypted_packet->getBufSize());
 }
 
-unsigned char EncryptedPacketWithSSID::getSSIDValue() {
+unsigned char EncryptedPacketWithSSID::getSsidValue() {
     return buf[1];
 }
 
@@ -386,6 +413,7 @@ Packet* EncryptedPacketWithSSID::getEncryptedPacket() {
             break;
         case PCK_EOT:
             encrypted_packet = new EOT(buf);
+            break;
         case PCK_DESC:
         case PCK_VAL:
         case PCK_GET:
@@ -403,7 +431,8 @@ Packet* EncryptedPacketWithSSID::getEncryptedPacket() {
 //            }
 //            break;
         default:
-            std::cout<<"Bad packet id: "<<buf[2]<<std::endl;
+            std::cout<<"Bad packet id: ";
+            hex_print(&buf[2],1);
     }
     return encrypted_packet;
 }

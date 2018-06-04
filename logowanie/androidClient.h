@@ -23,7 +23,7 @@ public:
     void setSesskey(Sesskey newSesskey){ sesskey = new Sesskey(newSesskey);}
     void setSssid(unsigned char ssid_value){ ssidValue = ssid_value;}
 
-    unsigned char getSsidValue();
+    unsigned char getSsidValue() const;
     Sesskey *getSesskey() const;
     ~AndroidClient();
 
