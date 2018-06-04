@@ -14,21 +14,27 @@ int main() {
 //    std::cout<<1<<std::endl;
     while (true){
 //        msg = readQueue->readToString();
-        std::cout<<"1"<<std::endl;
         Packet *packet = readQueue->readToPacket();
-        std::cout<<"2"<<std::endl;
 
         ACK *ack;
         EOT *eot;
+        SET *set;
 
         if( ack = dynamic_cast<ACK *>(packet)){
-            std::cout<<"ACK read"<<std::endl;
+            std::cout<<"ACK read ";//<<std::endl;
+            hex_print(ack->getBuf(), ack->getBufSize());
         }
+
         else if(eot = dynamic_cast<EOT *>(packet)){
             std::cout<<"EOT read"<<std::endl;
             break;
-        }
-        else{
+        }else if(set = dynamic_cast<SET *>(packet)){
+            std::cout<<"SET read"<<std::endl<<"PACKET ID: ";
+            hex_print(set->getBuf(), set->getBufSize());
+            std::cout<<"SET id: "<<set->getId()<<std::endl<<"SET value: "<<set->getValue()<<std::endl;
+
+        }else{
+
             std::cout<<"Wrong packet read"<<std::endl;
             break;
         }

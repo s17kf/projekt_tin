@@ -40,7 +40,9 @@ ReadQueue::ReadQueue(const std::string name, int oflags, int queueMode, int msgS
 
 int ReadQueue::readToCharArray(char *dest) {
     int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
-    CHECK(bytesRead >= 0);
+//    CHECK(bytesRead >= 0);
+    if(bytesRead <= 0)
+        return bytesRead;
 
     memcpy(dest, lastMsg, bytesRead);
 
@@ -49,13 +51,14 @@ int ReadQueue::readToCharArray(char *dest) {
 
 Packet* ReadQueue::readToPacket() {
     int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
-    CHECK(bytesRead >= 0);
+//    CHECK(bytesRead >= 0);
+    if(bytesRead <= 0)
+        return nullptr;
 
-    std::cout<<"10"<<std::endl;
+
     unsigned char msg[bytesRead];
     memcpy(msg, lastMsg, bytesRead);
 
-    std::cout<<"11"<<std::endl;
     Packet *packet = Packet::packetFromQueue(msg, bytesRead);
 
     return packet;

@@ -123,7 +123,17 @@ public:
 
 class SET : public EncrptedPacket {
 public:
+    SET(unsigned char *buf): EncrptedPacket(buf, 6){}
     SET(unsigned char id, float value);
+    float getValue() const;
+    unsigned char getId() const;
+};
+
+class GET : public EncrptedPacket {
+public:
+    GET(unsigned char *buf): EncrptedPacket(buf, 2){}
+    GET(unsigned char id);
+    unsigned char getId();
 };
 
 class EXIT : public EncrptedPacket {
@@ -133,6 +143,7 @@ public:
     //EXIT(Packet &&packet);
     EXIT(unsigned char code);
 };
+
 
 class ID : public PlainPacket {
 public:

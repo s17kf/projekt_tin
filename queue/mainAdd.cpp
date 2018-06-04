@@ -13,23 +13,28 @@ int main() {
 
     ACK *ack = new ACK(2);
     EOT *eot = new EOT();
+    SET *set = new SET(0xAA, 2.12);
 
-    while(true){
+    std::cout<<set->getValue();
+
+    while (true) {
         std::getline(std::cin, msg);
-        if(msg == "curr")
-            std::cout<<addQueue->getMessagesInQueue()<<std::endl;
+        if (msg == "curr")
+            std::cout << addQueue->getMessagesInQueue() << std::endl;
 
-        if(msg == "a"){
+        if (msg == "a") {
             ack->setPacketID(PCK_Q_ACK);
             addQueue->addMessage(ack);
-        }else{
+        } else if (msg == "s") {
+            set->setPacketID(PCK_Q_SET);
+            addQueue->addMessage(set);
+        } else {
             eot->setPacketID(PCK_Q_EOT);
             addQueue->addMessage(eot);
-        }
-
-        if(msg=="q!")
             break;
+        }
     }
+
 
     delete(addQueue);
 

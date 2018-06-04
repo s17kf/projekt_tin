@@ -137,41 +137,48 @@ Packet* Packet:: packetFactory(int soc_desc, const Sesskey *sesskey){
 
 Packet* Packet::packetFromQueue(unsigned char *buf_in, uint32_t buf_in_size) {
     Packet *new_packet;
+    unsigned char new_buf[buf_in_size];
+    memcpy(new_buf, buf_in, buf_in_size);
 
-
-
-    switch (buf_in[0]){
+    switch (new_buf[0]){
         case (PCK_Q_ACK):
-            new_packet = new ACK(buf_in);
+            new_buf[0] = PCK_ACK;
+            new_packet = new ACK(new_buf);
             break;
         case (PCK_Q_NAK):
-            new_packet = new NAK(buf_in);
+            new_buf[0] = PCK_NAK;
+            new_packet = new NAK(new_buf);
             break;
         case (PCK_Q_EOT):
-            new_packet = new EOT(buf_in);
+            new_buf[0] = PCK_EOT;
+            new_packet = new EOT(new_buf);
             break;
         case (PCK_Q_DESC):
-            new_packet = new DESC(buf_in, buf_in_size);
+            new_buf[0] = PCK_DESC;
+            new_packet = new DESC(new_buf, buf_in_size);
             break;
         case (PCK_Q_VAL):
-            new_packet = new VAL(buf_in);
+            new_buf[0] = PCK_VAL;
+            new_packet = new VAL(new_buf);
             break;
         case (PCK_Q_GET):
-            //TODO
+            new_buf[0] = PCK_GET;
+            new_packet = new GET(new_buf);
             break;
         case (PCK_Q_SET):
-            //TODO
+            new_buf[0] = PCK_SET;
+            new_packet = new SET(new_buf);
             break;
         case (PCK_Q_EXIT):
-            new_packet = new EXIT(buf_in);
+            new_buf[0] = PCK_EXIT;
+            new_packet = new EXIT(new_buf);
             break;
         default:
             log(3, "Packet not recognised");
             std::cout<<"Packet not recognized"<<std::endl;
             new_packet = nullptr;
     }
-    delete[] buf_in;
-    return new_packet;
+
     return new_packet;
 }
 
@@ -340,11 +347,7 @@ time_t VAL::getTimestamp() const {
     return t_stmp;
 }
 
-SET::SET(unsigned char id, float value): EncrptedPacket(6) {
-    buf[0] = PCK_SET;
-    buf[1] = id;
-    memcpy(&buf[2], &value, sizeof(float));
-}
+
 
 /*EXIT::EXIT(Packet &&packet): EncrptedPacket(packet.buf) {
 	packet.buf = NULL;
@@ -367,3 +370,34 @@ ID::ID(unsigned char id): PlainPacket(2) {
     buf[0] = PCK_ID;
     buf[1] = id;
 }
+
+SET::SET(unsigned char id, float value): EncrptedPacket(6) {
+    buf[0] = PCK_SET;
+    buf[1] = id;
+    memcpy(&buf[2], &value, sizeof(float));
+}
+
+float SET::getValue() const {
+    float val;
+    memcpy(&val, &buf[2], sizeof(float));
+    return val;
+}
+
+unsigned char SET::getId() const {
+    return buf[1];
+}
+
+
+GET::GET(unsigned char id):EncrptedPacket(2) {
+    buf[0] = PCK_GET;
+    buf[1] = id;
+}
+
+unsigned char GET::getId() {
+    return buf[1];
+}
+
+
+
+
+
