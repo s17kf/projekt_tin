@@ -38,7 +38,9 @@ int AddQueue::addMessage(const char *msg, int msgSize) {
 }
 
 int AddQueue::addMessage(Packet *packet) {
+    hex_print(packet->getBuf(),packet->getBufSize());
     char msg[packet->getBufSize()];
+    memcpy(&msg, packet->getBuf(), packet->getBufSize());
 
     switch(msg[0]){
         case PCK_SET:
@@ -46,6 +48,7 @@ int AddQueue::addMessage(Packet *packet) {
             break;
         case PCK_GET:
             msg[0] = PCK_Q_GET;
+            std::cout<<"GET ready to set to Gonzo"<<std::endl;
             break;
         default:
             std::cout<<"This packet should not be sent to Gonzo"<<std::endl;
@@ -53,7 +56,7 @@ int AddQueue::addMessage(Packet *packet) {
             return -1;
     }
 
-    memcpy(&msg, packet->getBuf(), packet->getBufSize());
+//    memcpy(&msg, packet->getBuf(), packet->getBufSize());
     return addMessage(msg, packet->getBufSize());
 }
 

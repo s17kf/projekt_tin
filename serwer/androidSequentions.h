@@ -22,6 +22,9 @@ int endSessionSequence(Connection *connection, AndroidClient *androidClient);
 int servicesSequence(Connection *connection, AndroidClient *androidClient, std::vector<DESC *> descriptors);
 int getSequence(Connection *connection, AndroidClient *androidClient, GET *get, \
 std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid);
+int setSequence(Connection *connection, AndroidClient *androidClient, SET *set, \
+std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid);
+
 
 
 #endif //SERWER_ANDROIDSEQUENTIONS_H

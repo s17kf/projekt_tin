@@ -112,6 +112,13 @@ void *androidController(void *port_nr){
                 //TODO
                 std::cout<<"Some error during get sequence"<<std::endl;
             }
+        }else if(SET * set = dynamic_cast<SET *>(received_packet)){
+            std::cout<<"SET received:"<<std::endl;
+            hex_print(set->getBuf(), set->getBufSize());
+            if(setSequence(connection, &androidClient, set, &queueFromAndroid, queueToAndroid) < 0){
+                //TODO
+                std::cout<<"Some error during set sequence"<<std::endl;
+            }
         }
 
 
@@ -129,6 +136,7 @@ void *serverPart2Controller(void *){
         if(!queueFromAndroid.empty()){
 
             std::cout<<"queue from android is not empty"<<std::endl;
+            hex_print(queueFromAndroid.front()->getBuf(),2);
 //            if(GET *get = dynamic_cast<GET *> (queueFromAndroid.front())){
 ////                get->setPacketID(PCK_Q_GET);
 //                addQueue->addMessage(get);
@@ -160,7 +168,16 @@ void *serverPart2Controller(void *){
                 VAL *val_to_queue = new VAL(val->getBuf());
                 queueToAndroid.push(val_to_queue);
                 std::cout<<"val received from Gonzo and added to queue"<<std::endl;
-            }else{
+            }else if(EOT *eot = dynamic_cast<EOT *>(packetFromGonzo)){
+                EOT *eot_to_queue = new EOT(eot->getBuf());
+                queueToAndroid.push(eot_to_queue);
+                std::cout<<"eot received from Gonzo and added to queue"<<std::endl;
+            }else if(EXIT *exit = dynamic_cast<EXIT *>(packetFromGonzo)){
+                EXIT *exit_to_queue = new EXIT(exit->getBuf());
+                queueToAndroid.push(exit_to_queue);
+                std::cout<<"exit received from Gonzo and added to queue"<<std::endl;
+            }
+            else{
                 std::cout<<"BAD packet received from Gonzo"<<std::endl;
             }
 
