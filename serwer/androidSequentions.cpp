@@ -8,12 +8,16 @@ int logInSequence(Connection *connection, Privkey *privkey, AndroidClient *andro
     Packet *received_packet;
     RNG rng;
 
+
+
     unsigned char chall_value[8];
     memcpy(chall_value, chall->getChall(), 8);
 
     /* encrypting chall and sendint responce */
     unsigned char encrypted[256];
-    privkey->encrypt(chall_value, 8, encrypted);
+//    privkey->encrypt(chall_value, 8, encrypted);
+    unsigned int resp_size = 256;
+    privkey->sign(chall_value, 8, encrypted, &resp_size);
     CHALL_RESP *chall_resp = CHALL_RESP::createFromEncrypted(encrypted);
     connection->send(chall_resp, androidClient->getSesskey());
     delete chall_resp;
@@ -26,14 +30,18 @@ int logInSequence(Connection *connection, Privkey *privkey, AndroidClient *andro
     if(KEY *key = dynamic_cast<KEY *>(received_packet)){
         std::cout<<"key received"<<std::endl;
         memcpy(key_encrypted, key->getKeyBuf(), 256);
+        hex_print(key_encrypted, 256);
 
         Sesskey *sesskey = new Sesskey(*key, *privkey);
-//        hex_print(sesskey->getKeyBuf(),16);
+        hex_print(sesskey->getKeyBuf(),16);
         androidClient->setSesskey(*sesskey);
     }else{
-        std::cout<<"wrong packet received, expected KEY"<<std::endl;
+        std::cout<<"wrong packet received, expected KEY"<<std::endl<<"received: ";
+        hex_print(received_packet->getBuf(),received_packet->getBufSize());
         return -1;
     }
+
+    hex_print(androidClient->getSesskey(), 16);
 
     /*SSID generating and sending*/
     unsigned char ssid_value;

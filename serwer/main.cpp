@@ -13,6 +13,7 @@
 #include "androidClient.h"
 #include "androidSequentions.h"
 #include "packet.h"
+#include "pubkey.h"
 
 std::queue <Packet *> queueToAndroid;
 std::queue <Packet *> queueFromAndroid;
@@ -39,6 +40,8 @@ int main(int argc, char **argv){
     addQueue = new AddQueue(QUEUE_NAME_TO_GONZO, O_CREAT | O_WRONLY, QUEUE_MODE, MSG_SIZE, MAX_MSGS);
     readQueue = new ReadQueue(QUEUE_NAME_FROM_GONZO, O_CREAT | O_RDONLY, QUEUE_MODE, MSG_SIZE, MAX_MSGS);
 
+    std::string logfile = "/home/s17kf/Dokumenty/serverlogfile.log";
+    initLog(logfile, 2);
 
     pthread_t android_thread_id;
     pthread_t server_thread_id;
@@ -75,7 +78,34 @@ void *androidController(void *port_nr){
     Connection *connection = new Connection(*((int*)(&port_nr)));
     AndroidClient androidClient;
 
+    OPENSSL_config(nullptr);
+    ERR_load_crypto_strings();
+
     Privkey *privkey = new Privkey("/home/s17kf/Pobrane/serwer_key-private.pem");
+    Pubkey *pubkey = new Pubkey("/home/s17kf/Pobrane/serwer_key-public.pem");
+
+    unsigned char plainn [256]= { 0x00, 0x1, 0x00};//, 0xc4, 0x5b, 0xc7, 0x77, 0x8d};
+    unsigned char encrypt[256];
+    unsigned char decrypt[256];
+    for(int i=0;i<256;++i){
+        plainn[i]=0x01;
+    }
+    hex_print(plainn,256);
+    pubkey->encrypt(plainn, 256, encrypt);
+    hex_print(encrypt, 256);
+    privkey->decrypt(encrypt, 256, decrypt);
+    hex_print(decrypt, 256);
+
+    unsigned char encrypted[256];
+    std::string plains = "plaintext";
+    unsigned char plain[9];
+    memcpy(plain, plains.c_str(), 9);
+    hex_print(plain, 9);
+    unsigned int sign_len = 256;
+    privkey->sign(plain,9, encrypted , &sign_len);
+
+    hex_print(encrypted,256);
+
 
     while(true) {
 
@@ -115,7 +145,7 @@ void *androidController(void *port_nr){
         }else if(SET * set = dynamic_cast<SET *>(received_packet)){
             std::cout<<"SET received:"<<std::endl;
             hex_print(set->getBuf(), set->getBufSize());
-            if(setSequence(connection, &androidClient, set, &queueFromAndroid, queueToAndroid) < 0){
+            if(setSequence(connection, &androidClient, set, &queueFromAndroid, &queueToAndroid) < 0){
                 //TODO
                 std::cout<<"Some error during set sequence"<<std::endl;
             }

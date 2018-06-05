@@ -234,14 +234,20 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     int32_t encrypted_size = encryptedLen(buf_size);
     encrypted = new unsigned char[encrypted_size];
     sesskey->encrypt(encrypted, buf, buf_size);
-    ret = writeTillDone(soc_desc, (unsigned char*) &buf_size, sizeof(buf_size));
-    if (ret <= 0)
-        return ret;
-    ret = writeTillDone(soc_desc, (unsigned char*) &boolean, sizeof(unsigned char));
-    if (ret <= 0)
-        return ret;
-    ret = writeTillDone(soc_desc, encrypted, encrypted_size);
+    unsigned char msg[buf_size+5];
+    memcpy(msg, &buf_size , sizeof(uint32_t));
+    memcpy(&msg[4], &boolean, 1);
+    memcpy(&msg[5], encrypted, buf_size);
+//    ret = writeTillDone(soc_desc, (unsigned char*) &buf_size, sizeof(buf_size));
+//    if (ret <= 0)
+//        return ret;
+//    ret = writeTillDone(soc_desc, (unsigned char*) &boolean, sizeof(unsigned char));
+//    if (ret <= 0)
+//        return ret;
+//    ret = writeTillDone(soc_desc, encrypted, encrypted_size);
     delete[] encrypted;
+    ret = writeTillDone(soc_desc, msg, buf_size+5);
+    std::cout<<"sent "<<buf_size+5<<"bytes"<<std::endl;
     return ret;
 }
 
@@ -270,14 +276,20 @@ ssize_t EncryptedPacketWithSSID::send(int soc_desc, const Sesskey *sesskey) cons
 ssize_t PlainPacket::send(int sock_desc, const Sesskey *sesskey) const {
     ssize_t ret;
     unsigned char boolean = (unsigned char) false;
-    ret = writeTillDone(sock_desc, (unsigned char *) &buf_size, sizeof(buf_size));
-    if(ret<=0)
-        return ret;
-    ret = writeTillDone(sock_desc, (unsigned char*) &boolean, sizeof(unsigned char));
-    if(ret <=0)
-        return ret;
+    unsigned char msg[buf_size+5];
+    memcpy(msg, &buf_size , sizeof(uint32_t));
+    memcpy(&msg[4], &boolean, 1);
+    memcpy(&msg[5], buf, buf_size);
 
-    ret = writeTillDone(sock_desc, buf, buf_size);
+//    ret = writeTillDone(sock_desc, (unsigned char *) &buf_size, sizeof(buf_size));
+//    if(ret<=0)
+//        return ret;
+//    ret = writeTillDone(sock_desc, (unsigned char*) &boolean, sizeof(unsigned char));
+//    if(ret <=0)
+//        return ret;
+
+//    ret = writeTillDone(sock_desc, buf, buf_size);
+    ret = writeTillDone(sock_desc, msg, buf_size+5);
     return ret;
 }
 
