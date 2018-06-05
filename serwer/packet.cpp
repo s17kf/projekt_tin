@@ -103,7 +103,7 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
 
         expected_size = encryptedLen(plain_len-2);
     }else{
-        std::cout<<"TODO: Not encrypted for now error"<<std::endl;
+       // std::cout<<"TODO: Not encrypted for now error"<<std::endl;
         //TODO: when more than one client will be
         expected_size = plain_len;
     }
@@ -165,7 +165,8 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
             new_packet = new GET(new_buf);
             break;
         case PCK_SERVICES:
-
+            new_packet = new SERVICES(new_buf);
+            break;
         case PCK_SSID:
             std::cout<<"ssid as encrypted part of EncryptedWithSsid or other error";
         default:

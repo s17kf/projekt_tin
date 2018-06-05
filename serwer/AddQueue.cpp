@@ -13,18 +13,48 @@ AddQueue::AddQueue(const std::string name, int oflags) {
 
 }
 
+AddQueue::AddQueue(const std::string name, int oflags, int queueMode, int msgSize, int maxMsgs) {
+
+    attributes = new mq_attr();
+    attributes->mq_msgsize = msgSize;
+    attributes->mq_maxmsg = maxMsgs;
+
+//    std::cout<<01<<std::endl;
+    queueDescriptor = mq_open(name.c_str(), oflags, queueMode, attributes);
+//    std::cout<<02<<std::endl;
+    queueName = name;
+    CHECK(queueDescriptor != (mqd_t)-1);
+
+   // lastMsg = new char[getMsgSize()+1];
+
+}
+
 int AddQueue::addMessage(std::string msg) {
     addMessage(msg.c_str(), msg.size()+1);
 }
 
 int AddQueue::addMessage(const char *msg, int msgSize) {
-    CHECK(0 <= mq_send(queueDescriptor, msg, msgSize, 0));
+    return mq_send(queueDescriptor, msg, msgSize, 0);
 }
 
 int AddQueue::addMessage(Packet *packet) {
     char msg[packet->getBufSize()];
+
+    switch(msg[0]){
+        case PCK_SET:
+            msg[0] = PCK_Q_SET;
+            break;
+        case PCK_GET:
+            msg[0] = PCK_Q_GET;
+            break;
+        default:
+            std::cout<<"This packet should not be sent to Gonzo"<<std::endl;
+            hex_print(msg,packet->getBufSize());
+            return -1;
+    }
+
     memcpy(&msg, packet->getBuf(), packet->getBufSize());
-    addMessage(msg, packet->getBufSize());
+    return addMessage(msg, packet->getBufSize());
 }
 
 

@@ -10,7 +10,7 @@ ReadQueue::ReadQueue(const std::string name, int oflags) {
     queueName = name;
     CHECK(queueDescriptor != (mqd_t)-1);
 
-    CHECK(mq_getattr(queueDescriptor, attributes) != 0);
+//    CHECK(mq_getattr(queueDescriptor, attributes) == 0);
 
     lastMsg = new char[getMsgSize()+1];
 
@@ -51,11 +51,11 @@ Packet* ReadQueue::readToPacket() {
     int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
     CHECK(bytesRead >= 0);
 
-    std::cout<<"10"<<std::endl;
+//    std::cout<<"10"<<std::endl;
     unsigned char msg[bytesRead];
     memcpy(msg, lastMsg, bytesRead);
 
-    std::cout<<"11"<<std::endl;
+//    std::cout<<"11"<<std::endl;
     Packet *packet = Packet::packetFromQueue(msg, bytesRead);
 
     return packet;
@@ -69,7 +69,11 @@ std::string ReadQueue::getName() {
 }
 
 int ReadQueue::getMsgSize() {
-    return attributes->mq_msgsize;
+    mq_attr attr;
+
+    CHECK(mq_getattr(queueDescriptor, &attr) == 0);
+
+    return attr.mq_msgsize;
 }
 
 ReadQueue::~ReadQueue() {
@@ -77,4 +81,11 @@ ReadQueue::~ReadQueue() {
     CHECK(mq_unlink(queueName.c_str()) != (mqd_t)-1);
     delete(attributes);
     delete(lastMsg);
+}
+
+long ReadQueue::getMessagesInQueue() {
+    mq_attr attr;
+    CHECK(mq_getattr(queueDescriptor, &attr) == 0);
+    return attr.mq_curmsgs;
+
 }

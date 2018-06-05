@@ -31,9 +31,13 @@ public:
 
     std::string getName();
 
+
+
     int getMsgSize();
 
     ~ReadQueue();
+
+    long getMessagesInQueue();
 
 };
 

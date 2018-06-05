@@ -18,6 +18,8 @@
 #define MSG_SIZE 128
 #define MAX_MSGS 10
 
+#define QUEUE_MODE S_IRWXU
+
 
 
 
