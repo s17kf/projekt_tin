@@ -501,6 +501,33 @@ queuePacket.cpp.s:
 	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/queuePacket.cpp.s
 .PHONY : queuePacket.cpp.s
 
+serwer.o: serwer.cpp.o
+
+.PHONY : serwer.o
+
+# target to build an object file
+serwer.cpp.o:
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/serwer.cpp.o
+.PHONY : serwer.cpp.o
+
+serwer.i: serwer.cpp.i
+
+.PHONY : serwer.i
+
+# target to preprocess a source file
+serwer.cpp.i:
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/serwer.cpp.i
+.PHONY : serwer.cpp.i
+
+serwer.s: serwer.cpp.s
+
+.PHONY : serwer.s
+
+# target to generate assembly for a file
+serwer.cpp.s:
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/serwer.cpp.s
+.PHONY : serwer.cpp.s
+
 sesskey.o: sesskey.cpp.o
 
 .PHONY : sesskey.o
@@ -579,6 +606,9 @@ help:
 	@echo "... queuePacket.o"
 	@echo "... queuePacket.i"
 	@echo "... queuePacket.s"
+	@echo "... serwer.o"
+	@echo "... serwer.i"
+	@echo "... serwer.s"
 	@echo "... sesskey.o"
 	@echo "... sesskey.i"
 	@echo "... sesskey.s"

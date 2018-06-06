@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/s17kf/Pulpit/projekt_tin/serwer/privkey.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/privkey.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/pubkey.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/pubkey.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/queuePacket.cpp.o"
+  "/home/s17kf/Pulpit/projekt_tin/serwer/serwer.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/serwer.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/sesskey.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/sesskey.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

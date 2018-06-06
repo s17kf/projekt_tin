@@ -25,6 +25,8 @@ QueuePacket* QueuePacket::packetFromQueue(ReadQueue *readQueue) {
     QueuePacket *new_packet;
     char bufor[256];
     int read = readQueue->readToCharArray(bufor);
+    if(read<0)
+        return nullptr;
     unsigned char bufor_unsigned[256];
     memcpy(bufor_unsigned,bufor, read);
 

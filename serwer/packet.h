@@ -11,6 +11,7 @@
 
 #include "sesskey.h"
 
+
 class Sesskey;
 class AndroidClient;
 
@@ -181,7 +182,7 @@ public:
     float getValue() const;
     time_t getTimestamp() const;
     VAL(unsigned char *buf): EncrptedPacket(buf, 10) {}
-//    VAL(unsigned char id, float value, time_t time_stamp);
+    VAL(unsigned char id, float value, time_t time_stamp);
     //VAL(Packet &&packet);
 };
 

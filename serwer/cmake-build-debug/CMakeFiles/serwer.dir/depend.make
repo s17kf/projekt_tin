@@ -101,6 +101,17 @@ CMakeFiles/serwer.dir/queuePacket.cpp.o: ../queuePacket.cpp
 CMakeFiles/serwer.dir/queuePacket.cpp.o: ../queuePacket.h
 CMakeFiles/serwer.dir/queuePacket.cpp.o: ../sesskey.h
 
+CMakeFiles/serwer.dir/serwer.cpp.o: ../AddQueue.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../DevDescriptor.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../ReadQueue.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../consts.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../packet.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../privkey.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../queuePacket.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../serwer.cpp
+CMakeFiles/serwer.dir/serwer.cpp.o: ../serwer.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../sesskey.h
+
 CMakeFiles/serwer.dir/sesskey.cpp.o: ../RNG.h
 CMakeFiles/serwer.dir/sesskey.cpp.o: ../log.h
 CMakeFiles/serwer.dir/sesskey.cpp.o: ../packet.h

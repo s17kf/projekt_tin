@@ -65,9 +65,16 @@ std::string AddQueue::getName() {
     return queueName;
 }
 
+void AddQueue::close() {
+    CHECK(mq_close(queueDescriptor) != (mqd_t)-1);
+}
+
+
 AddQueue::~AddQueue() {
     CHECK(mq_close(queueDescriptor) != (mqd_t)-1);
 }
+
+
 
 long AddQueue::getMessagesInQueue() {
     mq_attr attr;

@@ -14,6 +14,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/serwer.dir/androidSequentions.cpp.o"
   "CMakeFiles/serwer.dir/queuePacket.cpp.o"
   "CMakeFiles/serwer.dir/DevDescriptor.cpp.o"
+  "CMakeFiles/serwer.dir/serwer.cpp.o"
   "serwer.pdb"
   "serwer"
 )

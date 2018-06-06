@@ -16,6 +16,6 @@ add_executable(serwer main.cpp consts.h connection.cpp connection.h
         privkey.cpp privkey.h pubkey.cpp pubkey.h
         sesskey.cpp sesskey.h
         androidClient.cpp androidClient.h consts.cpp
-        AddQueue.cpp AddQueue.h ReadQueue.cpp ReadQueue.h main.cpp
+        AddQueue.cpp AddQueue.h ReadQueue.cpp ReadQueue.h
         androidSequentions.cpp androidSequentions.h
-        queuePacket.cpp queuePacket.h DevDescriptor.cpp DevDescriptor.h)
+        queuePacket.cpp queuePacket.h DevDescriptor.cpp DevDescriptor.h serwer.cpp serwer.h)

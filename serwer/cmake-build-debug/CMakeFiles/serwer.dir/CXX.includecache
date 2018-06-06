@@ -244,6 +244,20 @@ ReadQueue.h
 AddQueue.h
 /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h
 
+/home/s17kf/Pulpit/projekt_tin/serwer/serwer.cpp
+serwer.h
+/home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
+
+/home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
+thread
+-
+vector
+-
+privkey.h
+/home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
+DevDescriptor.h
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
+
 /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.cpp
 sesskey.h
 /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h

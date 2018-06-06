@@ -30,6 +30,7 @@ public:
 
     std::string getName();
 
+    void close();
     ~AddQueue();
 
 };

@@ -162,7 +162,7 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
             new_packet = new GET(new_buf);
             break;
         case PCK_SET:
-            new_packet = new GET(new_buf);
+            new_packet = new SET(new_buf);
             break;
         case PCK_SERVICES:
             new_packet = new SERVICES(new_buf);
@@ -430,6 +430,13 @@ float DESC::getMax() const {
     return max;
 }
 
+
+VAL::VAL(unsigned char id, float value, time_t time_stamp) :EncrptedPacket(10) {
+    buf[0] = PCK_VAL;
+    buf[1] = id;
+    memcpy(&buf[2], &value, sizeof(float));
+    memcpy(&buf[6], &time_stamp, sizeof(time_t));
+}
 
 
 unsigned char VAL::getServiceId() const {
