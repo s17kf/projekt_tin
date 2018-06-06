@@ -202,8 +202,19 @@ void *serverPart2Controller(void *){
                 std::cout<<"dev unit: "<<q_desc->getUnit()<<std::endl;
                 std::cout<<"min value: "<<q_desc->getMin()<<std::endl;
                 std::cout<<"max vaalue: "<<q_desc->getMax()<<std::endl;
+
                 DevDescriptor devDescriptor(q_desc);
                 descriptors.push_back(devDescriptor);
+
+                std::cout<<"all descriptors:"<<std::endl;
+                for(DevDescriptor descriptor : descriptors){
+                    std::cout<<"id: ";
+                    hex_print_noendl(descriptor.getId());
+                    std::cout<<"class: ";
+                    hex_print_noendl(descriptor.getClass());
+                    std::cout<<descriptor.getName()<<" "<<descriptor.getUnit()<<" ";
+                    std::cout<<descriptor.getMin()<<" "<<descriptor.getMax();
+                }
 
             }else if(Q_VAL *q_val = dynamic_cast<Q_VAL *>(packetFromGonzo)){
                 std::cout<<"received value from gonzo"<<std::endl;
@@ -211,6 +222,10 @@ void *serverPart2Controller(void *){
                 hex_print(q_val->getServiceId());
                 std::cout<<"value: "<<q_val->getValue()<<std::endl;
                 std::cout<<"time stamp: "<<q_val->getTimestamp()<<std::endl;
+//                queueToAndroid.push(new VAL());
+            }else if(Q_EXIT *q_exit = dynamic_cast<Q_EXIT *>(packetFromGonzo)){
+                std::cout<<"received exit from Gonzo, exit id: ";
+                hex_print(q_exit->getId());
             }
 
 //            Packet *packetFromGonzo = readQueue->readToPacket();

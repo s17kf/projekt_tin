@@ -169,7 +169,7 @@ public:
     const char *getUnit() const;
     float getMin() const;
     float getMax() const;
-    DESC(unsigned char dev_id, unsigned char dev_class, std::string name, std::string unit,\
+    DESC(unsigned char dev_id, unsigned char dev_class, const std::string &name, const std::string &unit,\
             float min, float max);
     DESC(unsigned char *buf, size_t buf_len): EncrptedPacket(buf, buf_len) {}
 
@@ -181,6 +181,7 @@ public:
     float getValue() const;
     time_t getTimestamp() const;
     VAL(unsigned char *buf): EncrptedPacket(buf, 10) {}
+//    VAL(unsigned char id, float value, time_t time_stamp);
     //VAL(Packet &&packet);
 };
 

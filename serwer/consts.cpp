@@ -22,3 +22,8 @@ void hex_print(unsigned char val){
     printf("%02X\n", val);
 
 }
+
+void hex_print_noendl(unsigned char val){
+    printf("%02X ", val);
+
+}

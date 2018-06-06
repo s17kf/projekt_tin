@@ -387,7 +387,7 @@ SERVICES::SERVICES() :EncrptedPacket(1) {
 }
 
 
-DESC::DESC(unsigned char dev_id, unsigned char dev_class, std::string name, std::string unit,\
+DESC::DESC(unsigned char dev_id, unsigned char dev_class, const std::string &name, const std::string &unit,\
  float min, float max) :EncrptedPacket(name.length() + 16) { //1 byte fir header, 1 for device id, 1 for type, 1 for terminating 0, 4 for unit, 4 for min, 4 for max, total 16
     if(unit.size() > 3) {
         delete[] buf;
@@ -429,6 +429,7 @@ float DESC::getMax() const {
     memcpy(&max, &buf[buf_size-4], sizeof(float));
     return max;
 }
+
 
 
 unsigned char VAL::getServiceId() const {

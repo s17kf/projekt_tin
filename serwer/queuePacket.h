@@ -58,7 +58,7 @@ public:
     const char *getUnit() const;
     float getMin() const;
     float getMax() const;
-    Q_DESC(unsigned char dev_id, unsigned char dev_class, std::string &name, std::string &unit,\
+    Q_DESC(unsigned char dev_id, unsigned char dev_class, const std::string &name, const std::string &unit,\
             float min, float max);
     Q_DESC(unsigned char *buf, size_t buf_len): QueuePacket(buf, buf_len) {}
 

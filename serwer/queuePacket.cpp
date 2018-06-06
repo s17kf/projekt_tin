@@ -79,7 +79,7 @@ Q_EOT::Q_EOT() :QueuePacket(1) {
     buf[0] = PAK_EOT;
 }
 
-Q_DESC::Q_DESC(unsigned char dev_id, unsigned char dev_class, std::string &name, std::string &unit,\
+Q_DESC::Q_DESC(unsigned char dev_id, unsigned char dev_class, const std::string &name, const std::string &unit,\
  float min, float max) :QueuePacket(name.length() + 16) { //1 byte fir header, 1 for device id, 1 for type, 1 for terminating 0, 4 for unit, 4 for min, 4 for max, total 16
     if(unit.size() > 3) {
         delete[] buf;
@@ -173,6 +173,10 @@ float Q_SET::getValue() const {
 Q_EXIT::Q_EXIT(unsigned char id) :QueuePacket(2) {
     buf[0] = PAK_EXIT;
     buf[1] = id;
+}
+
+unsigned char Q_EXIT::getId() const {
+    return buf[1];
 }
 
 

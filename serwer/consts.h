@@ -57,6 +57,7 @@
 
 void hex_print(const void* pv, size_t len);
 void hex_print(unsigned char val);
+void hex_print_noendl(unsigned char val);
 
 
 #define CHECK(x) \
