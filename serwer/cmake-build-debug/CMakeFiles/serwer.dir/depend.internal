@@ -61,6 +61,7 @@ CMakeFiles/serwer.dir/main.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
  /home/s17kf/Pulpit/projekt_tin/serwer/pubkey.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
  /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
 CMakeFiles/serwer.dir/packet.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h
@@ -77,8 +78,14 @@ CMakeFiles/serwer.dir/pubkey.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/pubkey.cpp
  /home/s17kf/Pulpit/projekt_tin/serwer/pubkey.h
 CMakeFiles/serwer.dir/queuePacket.cpp.o
+ /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
  /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.cpp
  /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
 CMakeFiles/serwer.dir/sesskey.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/RNG.h
  /home/s17kf/Pulpit/projekt_tin/serwer/log.h

@@ -14,6 +14,7 @@
 #include "androidSequentions.h"
 #include "packet.h"
 #include "pubkey.h"
+#include "queuePacket.h"
 
 std::queue <Packet *> queueToAndroid;
 std::queue <Packet *> queueFromAndroid;
@@ -182,34 +183,55 @@ void *serverPart2Controller(void *){
         }
 
         if(readQueue->getMessagesInQueue() > 0){
-            std::cout<<"msg in queue from Gonzo"<<std::endl;
-            Packet *packetFromGonzo = readQueue->readToPacket();
-            DESC *desc;
-            if(desc = dynamic_cast<DESC *>(packetFromGonzo)){
-                DESC *desc_to_vector = new DESC(desc->getBuf(), desc->getBufSize());
-                descriptors.push_back(desc_to_vector);
-                std::cout<<"new device added"<<std::endl;
+//            std::cout<<"msg in queue from Gonzo"<<std::endl;
+            QueuePacket *packetFromGonzo = QueuePacket::packetFromQueue(readQueue);
+//            std::cout<<"msg read"<<std::endl;
+            if(Q_DESC *q_desc = dynamic_cast<Q_DESC *>(packetFromGonzo)){
+                std::cout<<"Received descriptor from Gonzo"<<std::endl;
+                std::cout<<"dev id: ";
+                hex_print(q_desc->getDeviceId());
+                std::cout<<"dev class: ";
+                hex_print(q_desc->getDeviceClass());
+                std::cout<<"dev name: "<<q_desc->getName()<<std::endl;
+                std::cout<<"dev unit: "<<q_desc->getUnit()<<std::endl;
+                std::cout<<"min value: "<<q_desc->getMin()<<std::endl;
+                std::cout<<"max vaalue: "<<q_desc->getMax()<<std::endl;
 
-                std::cout<<"registered devices:"<<std::endl;
-                for(DESC *desc: descriptors){
-                    hex_print(desc->getBuf(),desc->getBufSize());
-                }
-            }else if(VAL *val = dynamic_cast<VAL *>(packetFromGonzo)){
-                VAL *val_to_queue = new VAL(val->getBuf());
-                queueToAndroid.push(val_to_queue);
-                std::cout<<"val received from Gonzo and added to queue"<<std::endl;
-            }else if(EOT *eot = dynamic_cast<EOT *>(packetFromGonzo)){
-                EOT *eot_to_queue = new EOT(eot->getBuf());
-                queueToAndroid.push(eot_to_queue);
-                std::cout<<"eot received from Gonzo and added to queue"<<std::endl;
-            }else if(EXIT *exit = dynamic_cast<EXIT *>(packetFromGonzo)){
-                EXIT *exit_to_queue = new EXIT(exit->getBuf());
-                queueToAndroid.push(exit_to_queue);
-                std::cout<<"exit received from Gonzo and added to queue"<<std::endl;
+            }else if(Q_VAL *q_val = dynamic_cast<Q_VAL *>(packetFromGonzo)){
+                std::cout<<"received value from gonzo"<<std::endl;
+                std::cout<<"dev id: ";
+                hex_print(q_val->getServiceId());
+                std::cout<<"value: "<<q_val->getValue()<<std::endl;
+                std::cout<<"time stamp: "<<q_val->getTimestamp()<<std::endl;
             }
-            else{
-                std::cout<<"BAD packet received from Gonzo"<<std::endl;
-            }
+
+//            Packet *packetFromGonzo = readQueue->readToPacket();
+//            DESC *desc;
+//            if(desc = dynamic_cast<DESC *>(packetFromGonzo)){
+//                DESC *desc_to_vector = new DESC(desc->getBuf(), desc->getBufSize());
+//                descriptors.push_back(desc_to_vector);
+//                std::cout<<"new device added"<<std::endl;
+//
+//                std::cout<<"registered devices:"<<std::endl;
+//                for(DESC *desc: descriptors){
+//                    hex_print(desc->getBuf(),desc->getBufSize());
+//                }
+//            }else if(VAL *val = dynamic_cast<VAL *>(packetFromGonzo)){
+//                VAL *val_to_queue = new VAL(val->getBuf());
+//                queueToAndroid.push(val_to_queue);
+//                std::cout<<"val received from Gonzo and added to queue"<<std::endl;
+//            }else if(EOT *eot = dynamic_cast<EOT *>(packetFromGonzo)){
+//                EOT *eot_to_queue = new EOT(eot->getBuf());
+//                queueToAndroid.push(eot_to_queue);
+//                std::cout<<"eot received from Gonzo and added to queue"<<std::endl;
+//            }else if(EXIT *exit = dynamic_cast<EXIT *>(packetFromGonzo)){
+//                EXIT *exit_to_queue = new EXIT(exit->getBuf());
+//                queueToAndroid.push(exit_to_queue);
+//                std::cout<<"exit received from Gonzo and added to queue"<<std::endl;
+//            }
+//            else{
+//                std::cout<<"BAD packet received from Gonzo"<<std::endl;
+//            }
 
         }
 

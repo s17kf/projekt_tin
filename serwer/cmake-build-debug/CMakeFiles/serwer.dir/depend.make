@@ -60,6 +60,7 @@ CMakeFiles/serwer.dir/main.cpp.o: ../main.cpp
 CMakeFiles/serwer.dir/main.cpp.o: ../packet.h
 CMakeFiles/serwer.dir/main.cpp.o: ../privkey.h
 CMakeFiles/serwer.dir/main.cpp.o: ../pubkey.h
+CMakeFiles/serwer.dir/main.cpp.o: ../queuePacket.h
 CMakeFiles/serwer.dir/main.cpp.o: ../sesskey.h
 
 CMakeFiles/serwer.dir/packet.cpp.o: ../androidClient.h
@@ -76,8 +77,14 @@ CMakeFiles/serwer.dir/privkey.cpp.o: ../privkey.h
 CMakeFiles/serwer.dir/pubkey.cpp.o: ../pubkey.cpp
 CMakeFiles/serwer.dir/pubkey.cpp.o: ../pubkey.h
 
+CMakeFiles/serwer.dir/queuePacket.cpp.o: ../AddQueue.h
+CMakeFiles/serwer.dir/queuePacket.cpp.o: ../ReadQueue.h
+CMakeFiles/serwer.dir/queuePacket.cpp.o: ../consts.h
+CMakeFiles/serwer.dir/queuePacket.cpp.o: ../packet.h
+CMakeFiles/serwer.dir/queuePacket.cpp.o: ../privkey.h
 CMakeFiles/serwer.dir/queuePacket.cpp.o: ../queuePacket.cpp
 CMakeFiles/serwer.dir/queuePacket.cpp.o: ../queuePacket.h
+CMakeFiles/serwer.dir/queuePacket.cpp.o: ../sesskey.h
 
 CMakeFiles/serwer.dir/sesskey.cpp.o: ../RNG.h
 CMakeFiles/serwer.dir/sesskey.cpp.o: ../log.h

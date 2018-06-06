@@ -39,10 +39,12 @@ ReadQueue::ReadQueue(const std::string name, int oflags, int queueMode, int msgS
 //}
 
 int ReadQueue::readToCharArray(char *dest) {
-    int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
+
+//    int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
+    int bytesRead = mq_receive(queueDescriptor, dest, getMsgSize(), NULL);
     CHECK(bytesRead >= 0);
 
-    memcpy(dest, lastMsg, bytesRead);
+    //memcpy(dest, lastMsg, bytesRead);
 
     return bytesRead;
 }

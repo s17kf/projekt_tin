@@ -15,7 +15,7 @@
 //queue parameters
 #define QUEUE_NAME_TO_GONZO  "/queueToGonzo"
 #define QUEUE_NAME_FROM_GONZO "/queueFromGonzo"
-#define MSG_SIZE 128
+#define MSG_SIZE 512
 #define MAX_MSGS 10
 
 #define QUEUE_MODE S_IRWXU
