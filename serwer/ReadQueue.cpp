@@ -49,20 +49,20 @@ int ReadQueue::readToCharArray(char *dest) {
     return bytesRead;
 }
 
-Packet* ReadQueue::readToPacket() {
-    int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
-    CHECK(bytesRead >= 0);
-
-//    std::cout<<"10"<<std::endl;
-    unsigned char msg[bytesRead];
-    memcpy(msg, lastMsg, bytesRead);
-
-//    std::cout<<"11"<<std::endl;
-    Packet *packet = Packet::packetFromQueue(msg, bytesRead);
-
-    return packet;
-
-}
+//Packet* ReadQueue::readToPacket() {
+//    int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
+//    CHECK(bytesRead >= 0);
+//
+////    std::cout<<"10"<<std::endl;
+//    unsigned char msg[bytesRead];
+//    memcpy(msg, lastMsg, bytesRead);
+//
+////    std::cout<<"11"<<std::endl;
+//    Packet *packet = Packet::packetFromQueue(msg, bytesRead);
+//
+//    return packet;
+//
+//}
 
 
 

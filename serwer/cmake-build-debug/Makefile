@@ -150,6 +150,33 @@ AddQueue.cpp.s:
 	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/AddQueue.cpp.s
 .PHONY : AddQueue.cpp.s
 
+DevDescriptor.o: DevDescriptor.cpp.o
+
+.PHONY : DevDescriptor.o
+
+# target to build an object file
+DevDescriptor.cpp.o:
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/DevDescriptor.cpp.o
+.PHONY : DevDescriptor.cpp.o
+
+DevDescriptor.i: DevDescriptor.cpp.i
+
+.PHONY : DevDescriptor.i
+
+# target to preprocess a source file
+DevDescriptor.cpp.i:
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/DevDescriptor.cpp.i
+.PHONY : DevDescriptor.cpp.i
+
+DevDescriptor.s: DevDescriptor.cpp.s
+
+.PHONY : DevDescriptor.s
+
+# target to generate assembly for a file
+DevDescriptor.cpp.s:
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/DevDescriptor.cpp.s
+.PHONY : DevDescriptor.cpp.s
+
 RNG.o: RNG.cpp.o
 
 .PHONY : RNG.o
@@ -513,6 +540,9 @@ help:
 	@echo "... AddQueue.o"
 	@echo "... AddQueue.i"
 	@echo "... AddQueue.s"
+	@echo "... DevDescriptor.o"
+	@echo "... DevDescriptor.i"
+	@echo "... DevDescriptor.s"
 	@echo "... RNG.o"
 	@echo "... RNG.i"
 	@echo "... RNG.s"

@@ -28,8 +28,17 @@
           <file leaf-file-name="sesskey.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/sesskey.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="280">
-                  <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+                <state relative-caret-position="182">
+                  <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="DevDescriptor.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/DevDescriptor.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="266">
+                  <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
                 </state>
               </provider>
             </entry>
@@ -37,8 +46,8 @@
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="326">
-                  <caret line="204" column="64" selection-start-line="204" selection-start-column="64" selection-end-line="204" selection-end-column="64" />
+                <state relative-caret-position="-503">
+                  <caret line="142" column="23" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
                   <folding>
                     <element signature="e#39#58#0" expanded="true" />
                   </folding>
@@ -49,8 +58,35 @@
           <file leaf-file-name="androidSequentions.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/androidSequentions.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="196">
-                  <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+                <state relative-caret-position="178">
+                  <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+                  <folding>
+                    <element signature="e#40#71#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AddQueue.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/AddQueue.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="124">
+                  <caret line="39" selection-start-line="39" selection-start-column="2" selection-end-line="60" selection-end-column="3" />
+                  <folding>
+                    <element signature="e#40#58#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="connection.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/connection.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="159">
+                  <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
+                  <folding>
+                    <element signature="e#40#59#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -58,8 +94,8 @@
           <file leaf-file-name="queuePacket.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/queuePacket.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="173">
-                  <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+                <state relative-caret-position="84">
+                  <caret line="81" selection-start-line="81" selection-end-line="122" selection-end-column="1" />
                 </state>
               </provider>
             </entry>
@@ -67,17 +103,8 @@
           <file leaf-file-name="privkey.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/privkey.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="317">
-                  <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="consts.h" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/consts.h">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="196">
-                  <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+                <state relative-caret-position="173">
+                  <caret line="41" column="92" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="92" />
                 </state>
               </provider>
             </entry>
@@ -85,8 +112,8 @@
           <file leaf-file-name="packet.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/packet.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="765">
-                  <caret line="415" column="21" selection-start-line="415" selection-start-column="21" selection-end-line="415" selection-end-column="21" />
+                <state relative-caret-position="440">
+                  <caret line="416" column="35" selection-start-line="416" selection-start-column="35" selection-end-line="416" selection-end-column="35" />
                 </state>
               </provider>
             </entry>
@@ -95,11 +122,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="queuePacket.h" pinned="false" current-in-tab="true">
+          <file leaf-file-name="queuePacket.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/queuePacket.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="364">
-                  <caret line="26" column="24" lean-forward="true" selection-end-line="111" />
+                <state relative-caret-position="156">
+                  <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
                   <folding>
                     <element signature="e#99#118#0" expanded="true" />
                   </folding>
@@ -107,11 +134,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="packet.h" pinned="false" current-in-tab="false">
+          <file leaf-file-name="packet.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/packet.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="112">
-                  <caret line="162" column="5" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
+                <state relative-caret-position="258">
+                  <caret line="170" column="13" selection-start-line="170" selection-start-column="13" selection-end-line="170" selection-end-column="13" />
                   <folding>
                     <element signature="e#96#115#0" expanded="true" />
                   </folding>
@@ -122,8 +149,8 @@
           <file leaf-file-name="ReadQueue.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ReadQueue.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="202">
-                  <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+                <state relative-caret-position="286">
+                  <caret line="30" selection-start-line="30" selection-end-line="30" />
                   <folding>
                     <element signature="e#107#126#0" expanded="true" />
                   </folding>
@@ -134,8 +161,8 @@
           <file leaf-file-name="ReadQueue.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ReadQueue.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="145">
-                  <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+                <state relative-caret-position="154">
+                  <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
                 </state>
               </provider>
             </entry>
@@ -143,8 +170,8 @@
           <file leaf-file-name="sesskey.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/sesskey.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="308">
-                  <caret line="22" column="55" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
+                <state relative-caret-position="254">
+                  <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
                   <folding>
                     <element signature="e#41#65#0" expanded="true" />
                   </folding>
@@ -167,8 +194,8 @@
           <file leaf-file-name="AddQueue.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/AddQueue.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="30" />
+                <state relative-caret-position="308">
+                  <caret line="27" selection-start-line="27" selection-end-line="27" />
                   <folding>
                     <element signature="e#101#120#0" expanded="true" />
                   </folding>
@@ -179,10 +206,22 @@
           <file leaf-file-name="androidSequentions.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/androidSequentions.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="76" />
+                <state relative-caret-position="271">
+                  <caret line="22" column="100" selection-start-line="22" selection-start-column="100" selection-end-line="22" selection-end-column="100" />
                   <folding>
                     <element signature="e#113#130#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="DevDescriptor.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/DevDescriptor.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="257">
+                  <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+                  <folding>
+                    <element signature="e#103#122#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -195,28 +234,32 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/packet.h" />
         <option value="$PROJECT_DIR$/consts.cpp" />
         <option value="$PROJECT_DIR$/privkey.h" />
         <option value="$PROJECT_DIR$/sesskey.cpp" />
         <option value="$PROJECT_DIR$/sesskey.h" />
         <option value="$PROJECT_DIR$/connection.cpp" />
         <option value="$PROJECT_DIR$/connection.h" />
-        <option value="$PROJECT_DIR$/AddQueue.h" />
-        <option value="$PROJECT_DIR$/ReadQueue.h" />
         <option value="$PROJECT_DIR$/androidClient.h" />
-        <option value="$PROJECT_DIR$/AddQueue.cpp" />
-        <option value="$PROJECT_DIR$/androidSequentions.h" />
-        <option value="$PROJECT_DIR$/packet.cpp" />
-        <option value="$PROJECT_DIR$/androidSequentions.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/pubkey.cpp" />
-        <option value="$PROJECT_DIR$/privkey.cpp" />
-        <option value="$PROJECT_DIR$/consts.h" />
-        <option value="$PROJECT_DIR$/ReadQueue.cpp" />
         <option value="$PROJECT_DIR$/queuePacket.h" />
         <option value="$PROJECT_DIR$/queuePacket.cpp" />
+        <option value="$PROJECT_DIR$/consts.h" />
+        <option value="$PROJECT_DIR$/AddQueue.h" />
+        <option value="$PROJECT_DIR$/AddQueue.cpp" />
+        <option value="$PROJECT_DIR$/ReadQueue.cpp" />
+        <option value="$PROJECT_DIR$/ReadQueue.h" />
+        <option value="$PROJECT_DIR$/privkey.cpp" />
+        <option value="$PROJECT_DIR$/devDescriptor.cpp" />
+        <option value="$PROJECT_DIR$/devDescriptor.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/androidSequentions.h" />
+        <option value="$PROJECT_DIR$/androidSequentions.cpp" />
+        <option value="$PROJECT_DIR$/DevDescriptor.h" />
+        <option value="$PROJECT_DIR$/DevDescriptor.cpp" />
+        <option value="$PROJECT_DIR$/packet.h" />
+        <option value="$PROJECT_DIR$/packet.cpp" />
       </list>
     </option>
   </component>
@@ -244,7 +287,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Pobrane/Tin-serwer-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -262,7 +305,7 @@
   </component>
   <component name="RunManager" selected="Application.serwer">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="serwer" RUN_TARGET_NAME="serwer" EXPLICIT_BUILD_TARGET_NAME="all" />
-    <configuration name="serwer" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="40002" PASS_PARENT_ENVS_2="true" PROJECT_NAME="serwer" TARGET_NAME="serwer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="serwer" RUN_TARGET_NAME="serwer" />
+    <configuration name="serwer" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="40001" PASS_PARENT_ENVS_2="true" PROJECT_NAME="serwer" TARGET_NAME="serwer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="serwer" RUN_TARGET_NAME="serwer" />
     <list>
       <item itemvalue="Application.Build All" />
       <item itemvalue="Application.serwer" />
@@ -282,12 +325,13 @@
       <workItem from="1528159376655" duration="14788000" />
       <workItem from="1528179822429" duration="18481000" />
       <workItem from="1528202977738" duration="753000" />
-      <workItem from="1528273221281" duration="8234000" />
+      <workItem from="1528273221281" duration="8805000" />
+      <workItem from="1528283767872" duration="8036000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52012000" />
+    <option name="totallyTimeSpent" value="60619000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="-2" width="1440" height="902" extended-state="6" />
@@ -298,12 +342,12 @@
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49961978" weight="0.32871535" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.2629921" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5003802" side_tool="true" weight="0.48818898" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49961978" visible="true" weight="0.25944585" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49961978" visible="true" weight="0.38539043" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -313,23 +357,23 @@
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.2629921" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.22777778" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.38582677" />
-      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Messages" order="0" visible="true" weight="0.32913387" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="CMake" order="11" weight="0.2629921" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info active="true" anchor="bottom" id="Messages" order="0" visible="true" weight="0.32913387" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -340,19 +384,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/connection.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" column="49" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
-          <folding>
-            <element signature="e#40#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidClient.cpp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/ReadQueue.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="784">
@@ -538,26 +569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidSequentions.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="76" />
-          <folding>
-            <element signature="e#113#130#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AddQueue.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="39" column="14" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="14" />
-          <folding>
-            <element signature="e#40#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidClient.cpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -575,33 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/connection.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
-          <folding>
-            <element signature="e#40#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sesskey.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="22" column="55" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
-          <folding>
-            <element signature="e#41#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pubkey.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -613,30 +597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/privkey.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding>
-            <element signature="e#97#121#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/privkey.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sesskey.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -661,85 +621,176 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packet.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="415" column="21" selection-start-line="415" selection-start-column="21" selection-end-line="415" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packet.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="162" column="5" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
-          <folding>
-            <element signature="e#96#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/consts.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ReadQueue.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+        <state relative-caret-position="224">
+          <caret line="25" selection-start-line="25" selection-start-column="2" selection-end-line="48" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AddQueue.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="30" />
+        <state relative-caret-position="308">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="e#101#120#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ReadQueue.h">
+    <entry file="file://$PROJECT_DIR$/ReadQueue.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-          <folding>
-            <element signature="e#107#126#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="154">
+          <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queuePacket.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="81" selection-start-line="81" selection-end-line="122" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/queuePacket.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="26" column="24" lean-forward="true" selection-end-line="111" />
+        <state relative-caret-position="156">
+          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
           <folding>
             <element signature="e#99#118#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidSequentions.cpp">
+    <entry file="file://$PROJECT_DIR$/privkey.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+        <state relative-caret-position="224">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+          <folding>
+            <element signature="e#97#121#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/queuePacket.cpp">
+    <entry file="file://$PROJECT_DIR$/ReadQueue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#107#126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privkey.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
-          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <caret line="41" column="92" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sesskey.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sesskey.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+          <folding>
+            <element signature="e#41#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connection.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
+          <folding>
+            <element signature="e#40#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidSequentions.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="22" column="100" selection-start-line="22" selection-start-column="100" selection-end-line="22" selection-end-column="100" />
+          <folding>
+            <element signature="e#113#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DevDescriptor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DevDescriptor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+          <folding>
+            <element signature="e#103#122#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packet.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="170" column="13" selection-start-line="170" selection-start-column="13" selection-end-line="170" selection-end-column="13" />
+          <folding>
+            <element signature="e#96#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packet.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="416" column="35" selection-start-line="416" selection-start-column="35" selection-end-line="416" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AddQueue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="39" selection-start-line="39" selection-start-column="2" selection-end-line="60" selection-end-column="3" />
+          <folding>
+            <element signature="e#40#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidSequentions.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+          <folding>
+            <element signature="e#40#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="204" column="64" selection-start-line="204" selection-start-column="64" selection-end-line="204" selection-end-column="64" />
+        <state relative-caret-position="-503">
+          <caret line="142" column="23" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
           <folding>
             <element signature="e#39#58#0" expanded="true" />
           </folding>

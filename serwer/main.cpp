@@ -15,11 +15,12 @@
 #include "packet.h"
 #include "pubkey.h"
 #include "queuePacket.h"
+#include "DevDescriptor.h"
 
 std::queue <Packet *> queueToAndroid;
 std::queue <Packet *> queueFromAndroid;
 
-std::vector <DESC *> descriptors;
+std::vector <DevDescriptor> descriptors;
 
 
 AddQueue *addQueue;
@@ -145,7 +146,8 @@ void *androidController(void *port_nr){
             }
         }else if(SET * set = dynamic_cast<SET *>(received_packet)){
             std::cout<<"SET received:"<<std::endl;
-            hex_print(set->getBuf(), set->getBufSize());
+//            hex_print(set->getBuf(), set->getBufSize());
+            set->print();
             if(setSequence(connection, &androidClient, set, &queueFromAndroid, &queueToAndroid) < 0){
                 //TODO
                 std::cout<<"Some error during set sequence"<<std::endl;
@@ -167,18 +169,22 @@ void *serverPart2Controller(void *){
         if(!queueFromAndroid.empty()){
 
             std::cout<<"queue from android is not empty"<<std::endl;
-            hex_print(queueFromAndroid.front()->getBuf(),2);
-//            if(GET *get = dynamic_cast<GET *> (queueFromAndroid.front())){
-////                get->setPacketID(PCK_Q_GET);
-//                addQueue->addMessage(get);
-//            }else if(SET *set = dynamic_cast<SET *>(queueFromAndroid.front())){
-////                set->setPacketID(PCK_Q_SET);
-//                addQueue->addMessage(set);
-//            }else{
-//                std::cout<<"This packet should not be sent to Gonzo"<<std::endl;
+//            hex_print(queueFromAndroid.front()->getBuf(),2);
+            queueFromAndroid.front()->print();
+            if(GET *get = dynamic_cast<GET *> (queueFromAndroid.front())){
+//                get->setPacketID(PCK_Q_GET);
+                Q_GET * q_get = new Q_GET(get->getId());
+                q_get->addToQueue(addQueue);
+            }else if(SET *set = dynamic_cast<SET *>(queueFromAndroid.front())){
+//                set->setPacketID(PCK_Q_SET);
+                Q_SET * q_set = new Q_SET(set->getId(), set->getValue());
+                q_set->addToQueue(addQueue);
+            }else{
+                std::cout<<"This packet should not be sent to Gonzo"<<std::endl;
+                queueFromAndroid.front()->print();
 //                hex_print(queueFromAndroid.front()->getBuf(),queueFromAndroid.front()->getBufSize());
-//            }
-            addQueue->addMessage(queueFromAndroid.front());
+            }
+//            addQueue->addMessage(queueFromAndroid.front());
             queueFromAndroid.pop();
         }
 
@@ -196,6 +202,8 @@ void *serverPart2Controller(void *){
                 std::cout<<"dev unit: "<<q_desc->getUnit()<<std::endl;
                 std::cout<<"min value: "<<q_desc->getMin()<<std::endl;
                 std::cout<<"max vaalue: "<<q_desc->getMax()<<std::endl;
+                DevDescriptor devDescriptor(q_desc);
+                descriptors.push_back(devDescriptor);
 
             }else if(Q_VAL *q_val = dynamic_cast<Q_VAL *>(packetFromGonzo)){
                 std::cout<<"received value from gonzo"<<std::endl;

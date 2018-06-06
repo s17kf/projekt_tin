@@ -24,7 +24,7 @@ public:
 
     int addMessage(std::string msg);
     int addMessage(const char *msg, int msgSize);
-    int addMessage(Packet *packet);
+//    int addMessage(Packet *packet);
 
     long getMessagesInQueue();
 

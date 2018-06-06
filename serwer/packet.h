@@ -14,30 +14,38 @@
 class Sesskey;
 class AndroidClient;
 
+
+
 class Packet {
 protected:
+    enum pck_type {
+        PCK_ACK	= 0x01,
+        PCK_NAK = 0x02,
+        PCK_EOT	= 0x03,
+        PCK_CHALL = 0x04,
+        PCK_CHALL_RESP = 0x05,
+        PCK_KEY = 0x06,
+        PCK_DESC = 0x07,
+        PCK_VAL = 0x08,
+        PCK_GET = 0x09,
+        PCK_SET = 0x0A,
+        PCK_SSID = 0x0B,
+        PCK_LOG = 0x0C,
+        PCK_SERVICES = 0x00D
+    };
     unsigned char *buf;
     uint32_t buf_size;
-
     Packet(const unsigned char *buf_in, uint32_t buf_len);
-    Packet(size_t size);
-
-
+    explicit Packet(size_t size) ;
 public:
-    static Packet * packetFactory(int soc_desc, const Sesskey *sesskey);
     static Packet *packetFactory(int soc_desc, const AndroidClient *androidClient);
-    static Packet *packetFromQueue(unsigned char *buf_in, uint32_t buf_in_size);
-
+    virtual ~Packet();
     virtual ssize_t send(int soc_desc, const Sesskey *sesskey) const = 0;
 
-    virtual ~Packet();
-
-    unsigned char *getBuf(){ return buf;}
-    uint32_t getBufSize(){ return buf_size;}
-
-    void setPacketID(unsigned char id);
-
+    //TODO: it should be deleted?
+    virtual void print();
 };
+
 
 /* This class keeps packets that travels via net encrypted. */
 class EncrptedPacket : public Packet {
@@ -134,7 +142,7 @@ public:
      * buf_len *buf len
     */
     EncryptedPacketWithSSID(unsigned char *buf, uint32_t buf_len) : Packet(buf, buf_len){}
-    EncryptedPacketWithSSID(unsigned char ssid_value, Packet *encrypted_packet);
+//    EncryptedPacketWithSSID(unsigned char ssid_value, Packet *encrypted_packet);
 
 
 
@@ -153,16 +161,18 @@ public:
     SERVICES();
 };
 
-class DESC : public EncrptedPacket {
+class DESC : public EncrptedPacket{
 public:
+    unsigned char getDeviceId() const;
     unsigned char getDeviceClass() const;
     const char *getName() const;
     const char *getUnit() const;
     float getMin() const;
     float getMax() const;
-    DESC(std::string &name, std::string &unit, float min, float max);
-    //DESC(Packet &&packet);
-    DESC(unsigned char *buf, size_t bufSize): EncrptedPacket(buf, bufSize) {}
+    DESC(unsigned char dev_id, unsigned char dev_class, std::string name, std::string unit,\
+            float min, float max);
+    DESC(unsigned char *buf, size_t buf_len): EncrptedPacket(buf, buf_len) {}
+
 };
 
 class VAL : public EncrptedPacket {
@@ -189,12 +199,12 @@ public:
     unsigned char getId() const;
 };
 
-class EXIT : public EncrptedPacket {
-public:
-    unsigned char getCode() const;
-    EXIT(unsigned char *buf): EncrptedPacket(buf, 2) {}
-    //EXIT(Packet &&packet);
-    EXIT(unsigned char code);
-};
+//class EXIT : public EncrptedPacket {
+//public:
+//    unsigned char getCode() const;
+//    EXIT(unsigned char *buf): EncrptedPacket(buf, 2) {}
+//    //EXIT(Packet &&packet);
+//    EXIT(unsigned char code);
+//};
 
 #endif //LOGOWANIE_PACKET_H

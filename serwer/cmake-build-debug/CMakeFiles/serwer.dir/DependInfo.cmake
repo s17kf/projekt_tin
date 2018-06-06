@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/AddQueue.cpp.o"
+  "/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/DevDescriptor.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/RNG.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/RNG.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/ReadQueue.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/androidClient.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/androidClient.cpp.o"

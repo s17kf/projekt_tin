@@ -3,6 +3,7 @@
 //
 
 #include "androidSequentions.h"
+#include "DevDescriptor.h"
 
 int logInSequence(Connection *connection, Privkey *privkey, AndroidClient *androidClient, CHALL *chall ){
     Packet *received_packet;
@@ -37,13 +38,15 @@ int logInSequence(Connection *connection, Privkey *privkey, AndroidClient *andro
         androidClient->setSesskey(*sesskey);
     }else{
         std::cout<<"wrong packet received, expected KEY"<<std::endl<<"received: ";
-        hex_print(received_packet->getBuf(),received_packet->getBufSize());
+//        hex_print(received_packet->getBuf(),received_packet->getBufSize());
+        received_packet->print();
         return -1;
     }
 
     hex_print(androidClient->getSesskey(), 16);
 
     /*SSID generating and sending*/
+    std::cout<<"ssid generating"<<std::endl;
     unsigned char ssid_value;
     rng.generate(&ssid_value, 1);
     SSID *ssid = new SSID(ssid_value);
@@ -99,9 +102,11 @@ int endSessionSequence(Connection *connection, AndroidClient *androidClient){
     return 0;
 }
 
-int servicesSequence(Connection *connection, AndroidClient *androidClient, std::vector<DESC *> descriptors){
+int servicesSequence(Connection *connection, AndroidClient *androidClient, std::vector<DevDescriptor> descriptors){
 
-    for( DESC * desc : descriptors){
+//    for( DESC * desc : descriptors){
+    for(DevDescriptor descriptor : descriptors){
+        DESC * desc = new DESC(descriptor.getId(), descriptor.getClass(), descriptor.getName(), descriptor.getUnit(), descriptor.getMin(), descriptor.getMax());
         connection->send(desc, androidClient->getSesskey());
         //TODO: check if no errors during sending
     }
@@ -115,8 +120,9 @@ int servicesSequence(Connection *connection, AndroidClient *androidClient, std::
 int getSequence(Connection *connection, AndroidClient *androidClient, GET *get, \
 std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid){
     if(get->getId()==0){
-        GET *get_to_queue = new GET(get->getBuf());
+        GET *get_to_queue = new GET(get->getId());
 //        hex_print(get->getBuf(),2);
+        get->print();
         queueFromAndroid->push(get);
 //        hex_print(queueFromAndroid->front()->getBuf(), 2);
 
@@ -140,7 +146,8 @@ std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid){
 
 
     } else{
-        hex_print(get->getBuf(),2);
+//        hex_print(get->getBuf(),2);
+        get->print();
         queueFromAndroid->push(get);
         while(queueToAndroid->empty());
         if(VAL *val = dynamic_cast<VAL *>(queueToAndroid->front())){

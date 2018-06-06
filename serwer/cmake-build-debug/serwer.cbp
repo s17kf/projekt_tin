@@ -92,6 +92,12 @@
 		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h">
 			<Option target="serwer"/>
 		</Unit>
+		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.cpp">
+			<Option target="serwer"/>
+		</Unit>
+		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h">
+			<Option target="serwer"/>
+		</Unit>
 		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/RNG.cpp">
 			<Option target="serwer"/>
 		</Unit>

@@ -24,6 +24,18 @@ packet.h
 consts.h
 /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
 
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.cpp
+DevDescriptor.h
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
+
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
+iostream
+-
+packet.h
+/home/s17kf/Pulpit/projekt_tin/serwer/packet.h
+queuePacket.h
+/home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
+
 /home/s17kf/Pulpit/projekt_tin/serwer/RNG.cpp
 RNG.h
 /home/s17kf/Pulpit/projekt_tin/serwer/RNG.h
@@ -77,6 +89,8 @@ privkey.h
 /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp
 androidSequentions.h
 /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
+DevDescriptor.h
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
 vector
@@ -95,6 +109,8 @@ androidClient.h
 /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h
 log.h
 /home/s17kf/Pulpit/projekt_tin/serwer/log.h
+DevDescriptor.h
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/connection.cpp
 iostream
@@ -163,6 +179,8 @@ pubkey.h
 /home/s17kf/Pulpit/projekt_tin/serwer/pubkey.h
 queuePacket.h
 /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
+DevDescriptor.h
+/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/packet.cpp
 cstring

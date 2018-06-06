@@ -40,12 +40,12 @@ ssize_t writeTillDone(int soc_desc, const unsigned char *buf, ssize_t msg_size) 
         written = write(soc_desc, &buf[i], (size_t) msg_size - i);
         switch (written) {
             case -1:
-//                log(3, "Writing to socket exited with: %s.", strerror(errno));
-                std::cout << strerror(errno);
+                log(3, "Writing to socket exited with: %s.", strerror(errno));
+                std::cout << strerror(errno)<<std::endl;
                 return -1;
             case 0:
-//                log(3, "Client socket have been closed");
-                std::cout << strerror(errno);
+                log(3, "Client socket have been closed");
+                std::cout << strerror(errno)<<std::endl;
                 return 0;
         }
         i += written;
@@ -180,53 +180,6 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
 
 }
 
-Packet* Packet::packetFromQueue(unsigned char *buf_in, uint32_t buf_in_size) {
-    Packet *new_packet;
-    unsigned char new_buf[buf_in_size];
-    memcpy(new_buf, buf_in, buf_in_size);
-
-    switch (new_buf[0]){
-        case (PCK_Q_ACK):
-            new_buf[0] = PCK_ACK;
-            new_packet = new ACK(new_buf);
-            break;
-        case (PCK_Q_NAK):
-            new_buf[0] = PCK_NAK;
-            new_packet = new NAK(new_buf);
-            break;
-        case (PCK_Q_EOT):
-            new_buf[0] = PCK_EOT;
-            new_packet = new EOT(new_buf);
-            break;
-        case (PCK_Q_DESC):
-            new_buf[0] = PCK_DESC;
-            new_packet = new DESC(new_buf, buf_in_size);
-            break;
-        case (PCK_Q_VAL):
-            new_buf[0] = PCK_VAL;
-            new_packet = new VAL(new_buf);
-            break;
-        case (PCK_Q_GET):
-            new_buf[0] = PCK_GET;
-            new_packet = new GET(new_buf);
-            break;
-        case (PCK_Q_SET):
-            new_buf[0] = PCK_SET;
-            new_packet = new SET(new_buf);
-            break;
-        case (PCK_Q_EXIT):
-            new_buf[0] = PCK_EXIT;
-            new_packet = new EXIT(new_buf);
-            break;
-        default:
-            log(3, "Packet not recognised");
-            std::cout<<"Packet not recognized"<<std::endl;
-            new_packet = nullptr;
-    }
-
-    return new_packet;
-}
-
 ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     unsigned char *encrypted;
     ssize_t ret;
@@ -234,10 +187,10 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     int32_t encrypted_size = encryptedLen(buf_size);
     encrypted = new unsigned char[encrypted_size];
     sesskey->encrypt(encrypted, buf, buf_size);
-    unsigned char msg[buf_size+5];
+    unsigned char msg[encrypted_size+5];
     memcpy(msg, &buf_size , sizeof(uint32_t));
     memcpy(&msg[4], &boolean, 1);
-    memcpy(&msg[5], encrypted, buf_size);
+    memcpy(&msg[5], encrypted, encrypted_size);
 //    ret = writeTillDone(soc_desc, (unsigned char*) &buf_size, sizeof(buf_size));
 //    if (ret <= 0)
 //        return ret;
@@ -246,8 +199,8 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
 //        return ret;
 //    ret = writeTillDone(soc_desc, encrypted, encrypted_size);
     delete[] encrypted;
-    ret = writeTillDone(soc_desc, msg, buf_size+5);
-    std::cout<<"sent "<<buf_size+5<<"bytes"<<std::endl;
+    ret = writeTillDone(soc_desc, msg, encrypted_size+5);
+    std::cout<<"sent "<<encrypted_size+5<<"bytes"<<std::endl;
     return ret;
 }
 
@@ -377,12 +330,12 @@ const unsigned char* KEY::getKeyBuf() const {
 }
 
 
-EncryptedPacketWithSSID::EncryptedPacketWithSSID(unsigned char ssid_value, Packet *encrypted_packet) : \
- Packet(encrypted_packet->getBufSize() + 2){
-    buf[0] = PCK_SSID;
-    buf[1] = ssid_value;
-    memcpy(&buf[2], encrypted_packet->getBuf(), encrypted_packet->getBufSize());
-}
+//EncryptedPacketWithSSID::EncryptedPacketWithSSID(unsigned char ssid_value, Packet *encrypted_packet) : \
+// Packet(encrypted_packet->getBufSize() + 2){
+//    buf[0] = PCK_SSID;
+//    buf[1] = ssid_value;
+//    memcpy(&buf[2], encrypted_packet->getBuf(), encrypted_packet->getBufSize());
+//}
 
 unsigned char EncryptedPacketWithSSID::getSsidValue() {
     return buf[1];
@@ -434,38 +387,47 @@ SERVICES::SERVICES() :EncrptedPacket(1) {
 }
 
 
-unsigned char DESC::getDeviceClass() const {
-    return buf[1];
-}
-const char *DESC::getName() const {
-    //return strdup(reinterpret_cast<char*> (&buf[2]));
-    return reinterpret_cast<char*> (&buf[2]);
-}
-const char *DESC::getUnit() const {
-    return reinterpret_cast<char*> (&buf[buf_size - 12]);
-}
-float DESC::getMin() const {
-    float min;
-    memcpy(&min, &buf[buf_size - 8], sizeof(float));
-    return min;
-}
-float DESC::getMax() const {
-    float max;
-    memcpy(&max, &buf[buf_size - 4], sizeof(float));
-    return max;
-}
-DESC::DESC(std::string &name, std::string &unit, float min, float max):
-        EncrptedPacket(name.length() + 15) {// 1 byte for header, 1 byte for type, 1 for terminating 0, 4 for unit, 4 for min, 4 for max, total 15
-    if (unit.size() > 3) {
+DESC::DESC(unsigned char dev_id, unsigned char dev_class, std::string name, std::string unit,\
+ float min, float max) :EncrptedPacket(name.length() + 16) { //1 byte fir header, 1 for device id, 1 for type, 1 for terminating 0, 4 for unit, 4 for min, 4 for max, total 16
+    if(unit.size() > 3) {
         delete[] buf;
         throw(std::runtime_error("Unit name is too long."));
     }
     buf[0] = PCK_DESC;
-    buf[1] = 0;//TODO: buf[1] = ?;
-    memcpy(&buf[2], name.c_str(), name.size()+1);
-    memcpy(&buf[buf_size - 12], unit.c_str(), 4);
-    memcpy(&buf[buf_size - 8], &min, sizeof(float));
-    memcpy(&buf[buf_size - 4], &max, sizeof(float));
+    buf[1] = dev_id;
+    buf[2] = dev_class;
+    memcpy(&buf[3], name.c_str(), name.size()+1);
+    memcpy(&buf[buf_size-12], unit.c_str(), 4);
+    memcpy(&buf[buf_size-8], &min, sizeof(float));
+    memcpy(&buf[buf_size-4], &max, sizeof(float));
+}
+
+unsigned char DESC::getDeviceId() const {
+    return buf[1];
+}
+
+unsigned char DESC::getDeviceClass() const {
+    return  buf[2];
+}
+
+const char* DESC::getName() const {
+    return reinterpret_cast<char *> (&buf[3]);
+}
+
+const char* DESC::getUnit() const {
+    return reinterpret_cast<char *>(&buf[buf_size-12]);
+}
+
+float DESC::getMin() const {
+    float min;
+    memcpy(&min, &buf[buf_size-8], sizeof(float));
+    return min;
+}
+
+float DESC::getMax() const {
+    float max;
+    memcpy(&max, &buf[buf_size-4], sizeof(float));
+    return max;
 }
 
 
@@ -508,15 +470,17 @@ unsigned char SET::getId() const {
     return buf[1];
 }
 
-EXIT::EXIT(unsigned char code): EncrptedPacket(2) {
-    buf[0] = PCK_EXIT;
-    buf[1] = code;
-}
-unsigned char EXIT::getCode() const {
-    return buf[1];
-}
+//EXIT::EXIT(unsigned char code): EncrptedPacket(2) {
+//    buf[0] = PCK_EXIT;
+//    buf[1] = code;
+//}
+//unsigned char EXIT::getCode() const {
+//    return buf[1];
+//}
 
-
+void Packet::print() {
+    hex_print(buf, buf_size);
+}
 
 
 

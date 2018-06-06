@@ -27,7 +27,7 @@ public:
 
 //    std::string readToString();
     int readToCharArray(char * dest);
-    Packet * readToPacket();
+//    Packet * readToPacket();
 
     std::string getName();
 

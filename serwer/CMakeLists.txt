@@ -18,4 +18,4 @@ add_executable(serwer main.cpp consts.h connection.cpp connection.h
         androidClient.cpp androidClient.h consts.cpp
         AddQueue.cpp AddQueue.h ReadQueue.cpp ReadQueue.h main.cpp
         androidSequentions.cpp androidSequentions.h
-        queuePacket.cpp queuePacket.h)
+        queuePacket.cpp queuePacket.h DevDescriptor.cpp DevDescriptor.h)
