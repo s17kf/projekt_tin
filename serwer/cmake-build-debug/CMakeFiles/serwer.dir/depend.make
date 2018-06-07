@@ -52,6 +52,7 @@ CMakeFiles/serwer.dir/androidSequentions.cpp.o: ../sesskey.h
 CMakeFiles/serwer.dir/connection.cpp.o: ../connection.cpp
 CMakeFiles/serwer.dir/connection.cpp.o: ../connection.h
 CMakeFiles/serwer.dir/connection.cpp.o: ../consts.h
+CMakeFiles/serwer.dir/connection.cpp.o: ../log.h
 CMakeFiles/serwer.dir/connection.cpp.o: ../packet.h
 CMakeFiles/serwer.dir/connection.cpp.o: ../privkey.h
 CMakeFiles/serwer.dir/connection.cpp.o: ../sesskey.h
@@ -76,6 +77,7 @@ CMakeFiles/serwer.dir/main.cpp.o: ../packet.h
 CMakeFiles/serwer.dir/main.cpp.o: ../privkey.h
 CMakeFiles/serwer.dir/main.cpp.o: ../pubkey.h
 CMakeFiles/serwer.dir/main.cpp.o: ../queuePacket.h
+CMakeFiles/serwer.dir/main.cpp.o: ../serwer.h
 CMakeFiles/serwer.dir/main.cpp.o: ../sesskey.h
 
 CMakeFiles/serwer.dir/packet.cpp.o: ../androidClient.h
@@ -103,8 +105,13 @@ CMakeFiles/serwer.dir/queuePacket.cpp.o: ../sesskey.h
 
 CMakeFiles/serwer.dir/serwer.cpp.o: ../AddQueue.h
 CMakeFiles/serwer.dir/serwer.cpp.o: ../DevDescriptor.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../RNG.h
 CMakeFiles/serwer.dir/serwer.cpp.o: ../ReadQueue.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../androidClient.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../androidSequentions.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../connection.h
 CMakeFiles/serwer.dir/serwer.cpp.o: ../consts.h
+CMakeFiles/serwer.dir/serwer.cpp.o: ../log.h
 CMakeFiles/serwer.dir/serwer.cpp.o: ../packet.h
 CMakeFiles/serwer.dir/serwer.cpp.o: ../privkey.h
 CMakeFiles/serwer.dir/serwer.cpp.o: ../queuePacket.h

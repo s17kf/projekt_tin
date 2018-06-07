@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <queue>
+#include <map>
 
 #include "connection.h"
 #include "RNG.h"
@@ -20,14 +21,15 @@
 
 int logInSequence(Connection *connection, Privkey *privkey, AndroidClient *androidClient, CHALL *chall );
 int endSessionSequence(Connection *connection, AndroidClient *androidClient);
-int servicesSequence(Connection *connection, AndroidClient *androidClient, std::vector<DevDescriptor> descriptors);
+int servicesSequence(Connection *connection, AndroidClient *androidClient,
+                     std::map<unsigned char, DevDescriptor> *devices);
 int getSequence(Connection *connection, AndroidClient *androidClient, GET *get,
                 std::queue<Packet *> *queueFromAndroid,
                 std::queue<Packet *> *queueToAndroid,
-                std::vector<DevDescriptor> *devices);
+                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
 int setSequence(Connection *connection, AndroidClient *androidClient, SET *set,
-    std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid,
-    std::vector<DevDescriptor> *devices);
+                std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid,
+                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
 
 
 

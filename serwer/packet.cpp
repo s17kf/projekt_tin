@@ -19,12 +19,12 @@ int readTillDone(int soc_desc, unsigned char *buf, ssize_t msg_size) {
         readed = read(soc_desc, &buf[i], (size_t) msg_size - i);
         switch (readed) {
             case -1:
-                //log(3, "Reading from socket exited with: %s.", strerror(errno));
-                std::cout <<"Reading error (packet.cpp, l20) 273"<< strerror(errno);
+                log(3, "Reading from socket exited with: %s.", strerror(errno));
+//                std::cout <<"Reading error (packet.cpp, l20) 273"<< strerror(errno);
                 return -1;
             case 0:
                 log(3, "Client socket have been closed");
-                std::cout << "readTillDone: " << strerror(errno);
+//                std::cout << "readTillDone: " << strerror(errno);
                 return 0;
         }
         i += readed;

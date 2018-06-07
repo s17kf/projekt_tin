@@ -102,11 +102,12 @@ int endSessionSequence(Connection *connection, AndroidClient *androidClient){
     return 0;
 }
 
-int servicesSequence(Connection *connection, AndroidClient *androidClient, std::vector<DevDescriptor> descriptors){
+int servicesSequence(Connection *connection, AndroidClient *androidClient, std::map<unsigned char, DevDescriptor> *devices){
 
-//    for( DESC * desc : descriptors){
-    for(DevDescriptor descriptor : descriptors){
-        DESC * desc = new DESC(descriptor.getId(), descriptor.getClass(), descriptor.getName(), descriptor.getUnit(), descriptor.getMin(), descriptor.getMax());
+//    for( DESC * desc : devices){
+//    for(DevDescriptor descriptor : *devices){
+    for(auto iter = devices->begin();iter!=devices->end();iter++){
+        DESC * desc = new DESC(iter->second.getId(), iter->second.getClass(), iter->second.getName(), iter->second.getUnit(), iter->second.getMin(), iter->second.getMax());
         connection->send(desc, androidClient->getSesskey());
         //TODO: check if no errors during sending
     }
@@ -120,18 +121,17 @@ int servicesSequence(Connection *connection, AndroidClient *androidClient, std::
 int getSequence(Connection *connection, AndroidClient *androidClient, GET *get,
                 std::queue<Packet *> *queueFromAndroid,
                 std::queue<Packet *> *queueToAndroid,
-                std::vector<DevDescriptor> *devices){
+                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue){
     if(get->getId()==0){
-        GET *get_to_queue = new GET(get->getId());
-//        hex_print(get->getBuf(),2);
+//        GET *get_to_queue = new GET(get->getId());
 
-//        hex_print(queueFromAndroid->front()->getBuf(), 2);
-
-
-        for(auto dev : *devices){
+        for(auto iter = devices->begin();iter!=devices->end();iter++){
             get->print();
-            GET *get_i = new GET(dev.getId());
-            queueFromAndroid->push(get_i);
+            GET *get_i = new GET(iter->second.getId());
+            Q_GET * q_get = new Q_GET(get_i->getId());
+            q_get->addToQueue(addQueue);
+            std::cout<<"sent to server: ";
+            q_get->print();
             while(queueToAndroid->empty());
             if(VAL *val = dynamic_cast<VAL *>(queueToAndroid->front())){
                 std::cout<<"timestamp: "<<val->getTimestamp()<<std::endl;
@@ -140,7 +140,7 @@ int getSequence(Connection *connection, AndroidClient *androidClient, GET *get,
             }else{
                 std::cout<<"bad packet received from Gonzo, expected VAL"<<std::endl;
                 queueToAndroid->pop();
-                return -1;
+                return -2;
             }
         }
 
@@ -148,20 +148,37 @@ int getSequence(Connection *connection, AndroidClient *androidClient, GET *get,
         connection->send(eot, androidClient->getSesskey());
         std::cout<<"eot after all values sent"<<std::endl;
 
-
-
     } else{
-//        hex_print(get->getBuf(),2);
         get->print();
-        queueFromAndroid->push(get);
-        while(queueToAndroid->empty());
-        if(VAL *val = dynamic_cast<VAL *>(queueToAndroid->front())){
-            std::cout<<"timestamp: "<<val->getTimestamp()<<std::endl;
-            queueToAndroid->pop();
-            connection->send(val, androidClient->getSesskey());
+
+        /*checking if id is correct*/
+        auto iter = devices->find(get->getId());
+
+//        bool id_correct = false;
+//        for(auto dev : *devices){
+//            if(dev.getId() == get->getId()){
+//                id_correct = true;
+//                break;
+//            }
+//        }
+
+//        if(id_correct){
+        if(iter != devices->end()){
+            Q_GET * q_get = new Q_GET(get->getId());
+            q_get->addToQueue(addQueue);
+            std::cout<<"get add to queue: ";
+            q_get->print();
+            while(queueToAndroid->empty());
+            if(VAL *val = dynamic_cast<VAL *>(queueToAndroid->front())){
+                std::cout<<"timestamp: "<<val->getTimestamp()<<std::endl;
+                queueToAndroid->pop();
+                connection->send(val, androidClient->getSesskey());
+            }
         }else{
-            std::cout<<"bad packet received from Gonzo, expected VAL"<<std::endl;
-            queueToAndroid->pop();
+            NAK * nak = new NAK(get->getId());
+            connection->send(nak, androidClient->getSesskey());
+            std::cout<<"nak sent to android: ";
+            nak->print();
             return -1;
         }
     }
@@ -174,34 +191,35 @@ int getSequence(Connection *connection, AndroidClient *androidClient, GET *get,
 
 
 int setSequence(Connection *connection, AndroidClient *androidClient, SET *set,
-std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid,
-std::vector<DevDescriptor> *devices){
+                std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid,
+                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue){
+
     std::cout<<"SET id: "<<set->getId()<<"; set value"<<set->getValue()<<std::endl;
 
     /*checking if id is correct*/
-    bool id_correct = false;
-    for(auto dev : *devices){
-        if(dev.getId() == set->getId()){
-            id_correct = true;
-            break;
-        }
+//    bool id_correct = false;
+//    for(auto dev : *devices){
+//        if(dev.getId() == set->getId()){
+//            id_correct = true;
+//            break;
+//        }
+//    }
+    auto iter = devices->find(set->getId());
+//    if(id_correct){
+    if(iter != devices->end()){
+        Q_SET * q_set = new Q_SET(set->getId(), set->getValue());
+        q_set->addToQueue(addQueue);
+
+        ACK * ack = new ACK(set->getId());
+        connection->send(ack, androidClient->getSesskey());
+        std::cout<<"ack sent to android: ";
+        ack->print();
     }
-    //TODO: teraz jak id poprawne wyslij set do serwera i ack do androida lub nak do androida
-
-
-    queueFromAndroid->push(set);
-    while(queueToAndroid->empty());
-    if(ACK *ack = dynamic_cast<ACK *>(queueToAndroid->front())){
-        queueToAndroid->pop();
-        connection->send(ack,androidClient->getSesskey());
-        std::cout<<"ack sent"<<std::endl;
-    }else if(NAK * nak = dynamic_cast<NAK *>(queueToAndroid->front())){
-        queueToAndroid->pop();
-        connection->send(nak,androidClient->getSesskey());
-        std::cout<<"nak sent"<<std::endl;
-    }else {
-        std::cout << "bad packet received from Gonzo, expected VAL" << std::endl;
-        queueToAndroid->pop();
+    else{
+        NAK * nak = new NAK(set->getId());
+        connection->send(nak, androidClient->getSesskey());
+        std::cout<<"nak sent to android: ";
+        nak->print();
         return -1;
     }
 

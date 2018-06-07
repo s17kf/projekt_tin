@@ -67,6 +67,11 @@ ssize_t QueuePacket::addToQueue(AddQueue *addQueue) {
 }
 
 
+void QueuePacket::print() {
+    hex_print(buf, buf_size);
+}
+
+
 
 Q_NAK::Q_NAK(unsigned char id) :QueuePacket(2) {
     buf[0] = PAK_NAK;

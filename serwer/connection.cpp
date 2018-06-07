@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "connection.h"
+#include "log.h"
 
 
 Connection::Connection(int port) {
@@ -15,17 +16,18 @@ Connection::Connection(int port) {
     socketDesc = socket(serverAddr.sin_family, SOCK_STREAM, IPPROTO_TCP);
 
     if(bind(socketDesc, (struct sockaddr*) &serverAddr, sizeof(serverAddr)) < 0){
-        std::cout<<"001 Error occurred during binding socket on port " << PORT_NR<<std::endl;
-        exit(1);
+        log(1, "Error occurred during binding socket on port %d", port);
+//        std::cout<<"001 Error occurred during binding socket on port " << port<<std::endl;
+        exit(2);
     }
 
     if (listen(socketDesc, MAX_CONNECTIONS) < 0) {
-//        log(1, "Error occurred during listening on socket on port %d", port);
-        std::cout<<"002Error occurred during listening on socket on port "<<PORT_NR<<std::endl;
+        log(1, "Error occurred during listening on socket on port %d", port);
+//        std::cout<<"002Error occurred during listening on socket on port "<<PORT_NR<<std::endl;
         exit(1);
     }
-    std::cout<<"Server registered on port "<<port<<std::endl;
-
+//    std::cout<<"Server registered on portt "<<port<<std::endl;
+    log(1, "Server registered on port: %d", port);
 }
 
 Connection::~Connection(){

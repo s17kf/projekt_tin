@@ -33,6 +33,8 @@ public:
     static QueuePacket *packetFromQueue(ReadQueue *readQueue);
     virtual ~QueuePacket();
     virtual ssize_t  addToQueue(AddQueue *addQueue);
+
+    virtual void print();
 };
 
 

@@ -97,6 +97,8 @@ vector
 -
 queue
 -
+map
+-
 connection.h
 /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
 RNG.h
@@ -117,6 +119,8 @@ iostream
 -
 connection.h
 /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
+log.h
+/home/s17kf/Pulpit/projekt_tin/serwer/log.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
 netinet/in.h
@@ -163,6 +167,8 @@ queue
 -
 vector
 -
+fstream
+-
 connection.h
 /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
 AddQueue.h
@@ -181,6 +187,8 @@ queuePacket.h
 /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
 DevDescriptor.h
 /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
+serwer.h
+/home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/packet.cpp
 cstring
@@ -249,14 +257,30 @@ serwer.h
 /home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
+iostream
+-
+unistd.h
+-
 thread
 -
 vector
+-
+queue
 -
 privkey.h
 /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
 DevDescriptor.h
 /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
+packet.h
+/home/s17kf/Pulpit/projekt_tin/serwer/packet.h
+queuePacket.h
+/home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
+connection.h
+/home/s17kf/Pulpit/projekt_tin/serwer/connection.h
+androidSequentions.h
+/home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
+map
+-
 
 /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.cpp
 sesskey.h
