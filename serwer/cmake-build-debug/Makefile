@@ -258,33 +258,6 @@ androidClient.cpp.s:
 	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/androidClient.cpp.s
 .PHONY : androidClient.cpp.s
 
-androidSequentions.o: androidSequentions.cpp.o
-
-.PHONY : androidSequentions.o
-
-# target to build an object file
-androidSequentions.cpp.o:
-	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/androidSequentions.cpp.o
-.PHONY : androidSequentions.cpp.o
-
-androidSequentions.i: androidSequentions.cpp.i
-
-.PHONY : androidSequentions.i
-
-# target to preprocess a source file
-androidSequentions.cpp.i:
-	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/androidSequentions.cpp.i
-.PHONY : androidSequentions.cpp.i
-
-androidSequentions.s: androidSequentions.cpp.s
-
-.PHONY : androidSequentions.s
-
-# target to generate assembly for a file
-androidSequentions.cpp.s:
-	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/androidSequentions.cpp.s
-.PHONY : androidSequentions.cpp.s
-
 connection.o: connection.cpp.o
 
 .PHONY : connection.o
@@ -579,9 +552,6 @@ help:
 	@echo "... androidClient.o"
 	@echo "... androidClient.i"
 	@echo "... androidClient.s"
-	@echo "... androidSequentions.o"
-	@echo "... androidSequentions.i"
-	@echo "... androidSequentions.s"
 	@echo "... connection.o"
 	@echo "... connection.i"
 	@echo "... connection.s"

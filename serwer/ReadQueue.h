@@ -12,6 +12,7 @@
 
 #include "packet.h"
 #include "consts.h"
+#include "log.h"
 
 class ReadQueue {
 

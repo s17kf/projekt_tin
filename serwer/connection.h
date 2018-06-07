@@ -28,10 +28,11 @@ public:
 
     void endClientConnection();
     int connect();
+//    int endConnection();
 
     ssize_t send (Packet *packet, Sesskey * sesskey);
 //    Packet* receive(Sesskey *sesskey);
-    Packet* receive(AndroidClient *androidClient);
+    Packet* receive(Serwer *serwer, unsigned char *ssidValue);
 
 
     ssize_t send(uint32_t value);

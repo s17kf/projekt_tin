@@ -5,6 +5,7 @@ CMakeFiles/serwer.dir/AddQueue.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.cpp
  /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h
  /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/log.h
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
  /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
@@ -14,6 +15,7 @@ CMakeFiles/serwer.dir/DevDescriptor.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
  /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.h
  /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/log.h
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
  /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
@@ -25,6 +27,7 @@ CMakeFiles/serwer.dir/ReadQueue.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.cpp
  /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.h
  /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/log.h
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
  /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
@@ -33,21 +36,6 @@ CMakeFiles/serwer.dir/androidClient.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
- /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
-CMakeFiles/serwer.dir/androidSequentions.cpp.o
- /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h
- /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
- /home/s17kf/Pulpit/projekt_tin/serwer/RNG.h
- /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.h
- /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h
- /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp
- /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
- /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
- /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
- /home/s17kf/Pulpit/projekt_tin/serwer/log.h
- /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
- /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
- /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
  /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
 CMakeFiles/serwer.dir/connection.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/connection.cpp
@@ -81,12 +69,20 @@ CMakeFiles/serwer.dir/main.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
  /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
 CMakeFiles/serwer.dir/packet.cpp.o
+ /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/RNG.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.h
  /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
  /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
  /home/s17kf/Pulpit/projekt_tin/serwer/log.h
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.cpp
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
  /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.h
 CMakeFiles/serwer.dir/privkey.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.cpp
@@ -98,6 +94,7 @@ CMakeFiles/serwer.dir/queuePacket.cpp.o
  /home/s17kf/Pulpit/projekt_tin/serwer/AddQueue.h
  /home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.h
  /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+ /home/s17kf/Pulpit/projekt_tin/serwer/log.h
  /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
  /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
  /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.cpp

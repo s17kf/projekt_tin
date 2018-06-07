@@ -6,7 +6,7 @@
 #include "androidClient.h"
 
 //AndroidClient::AndroidClient(const unsigned char *key_encrypted, Privkey *privkey, unsigned char ssid_value){
-AndroidClient::AndroidClient(Sesskey session_key, Privkey *privkey, unsigned char ssid_value) {
+AndroidClient::AndroidClient(Sesskey session_key, unsigned char ssid_value) {
     sesskey = new Sesskey(session_key);
 //    unsigned char *key_buf;
 //    memcpy(key_buf, key_encrypted, 256);

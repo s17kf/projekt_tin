@@ -19,17 +19,7 @@
 
 
 
-int logInSequence(Connection *connection, Privkey *privkey, AndroidClient *androidClient, CHALL *chall );
-int endSessionSequence(Connection *connection, AndroidClient *androidClient);
-int servicesSequence(Connection *connection, AndroidClient *androidClient,
-                     std::map<unsigned char, DevDescriptor> *devices);
-int getSequence(Connection *connection, AndroidClient *androidClient, GET *get,
-                std::queue<Packet *> *queueFromAndroid,
-                std::queue<Packet *> *queueToAndroid,
-                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
-int setSequence(Connection *connection, AndroidClient *androidClient, SET *set,
-                std::queue<Packet *> *queueFromAndroid, std::queue<Packet *> *queueToAndroid,
-                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
+
 
 
 

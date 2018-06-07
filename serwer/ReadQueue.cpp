@@ -40,29 +40,9 @@ ReadQueue::ReadQueue(const std::string name, int oflags, int queueMode, int msgS
 
 int ReadQueue::readToCharArray(char *dest) {
 
-//    int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
     int bytesRead = mq_receive(queueDescriptor, dest, getMsgSize(), NULL);
-//    CHECK(bytesRead >= 0);
-
-    //memcpy(dest, lastMsg, bytesRead);
-
     return bytesRead;
 }
-
-//Packet* ReadQueue::readToPacket() {
-//    int bytesRead = mq_receive(queueDescriptor, lastMsg, getMsgSize(), NULL);
-//    CHECK(bytesRead >= 0);
-//
-////    std::cout<<"10"<<std::endl;
-//    unsigned char msg[bytesRead];
-//    memcpy(msg, lastMsg, bytesRead);
-//
-////    std::cout<<"11"<<std::endl;
-//    Packet *packet = Packet::packetFromQueue(msg, bytesRead);
-//
-//    return packet;
-//
-//}
 
 
 
@@ -73,21 +53,26 @@ std::string ReadQueue::getName() {
 int ReadQueue::getMsgSize() {
     mq_attr attr;
 
-    CHECK(mq_getattr(queueDescriptor, &attr) == 0);
-
+    if(mq_getattr(queueDescriptor, &attr) == -1)
+        return -1;
     return attr.mq_msgsize;
 }
 
 ReadQueue::~ReadQueue() {
-    CHECK(mq_close(queueDescriptor) != (mqd_t)-1);
-    CHECK(mq_unlink(queueName.c_str()) != (mqd_t)-1);
+    if(mq_close(queueDescriptor)<0){
+        log(4, "error during closing readQueue: %s", strerror(errno));
+    }
+    if(mq_close(queueDescriptor)<0){
+        log(4, "error during unlinking readQueue: %s", strerror(errno));
+    }
     delete(attributes);
     delete(lastMsg);
 }
 
 long ReadQueue::getMessagesInQueue() {
     mq_attr attr;
-    CHECK(mq_getattr(queueDescriptor, &attr) == 0);
+    if(mq_getattr(queueDescriptor, &attr) == -1)
+        return -1;
     return attr.mq_curmsgs;
 
 }

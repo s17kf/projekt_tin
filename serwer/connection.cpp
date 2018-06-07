@@ -31,8 +31,8 @@ Connection::Connection(int port) {
 }
 
 Connection::~Connection(){
-     shutdown(clientSocket, SHUT_RDWR);
-     shutdown(socketDesc, SHUT_RDWR);
+    shutdown(clientSocket, SHUT_RDWR);
+    shutdown(socketDesc, SHUT_RDWR);
 }
 
 int Connection::connect() {
@@ -46,6 +46,11 @@ int Connection::connect() {
 
 }
 
+//int Connection::endConnection() {
+//    return shutdown(clientSocket, SHUT_RDWR);
+//}
+
+
 ssize_t Connection::send(Packet *packet, Sesskey *sesskey) {
     return packet->send(clientSocket, sesskey);
 }
@@ -54,8 +59,8 @@ ssize_t Connection::send(Packet *packet, Sesskey *sesskey) {
 //    return Packet::packetFactory(clientSocket, sesskey);
 //}
 
-Packet* Connection::receive(AndroidClient *androidClient) {
-    return Packet::packetFactory(clientSocket, androidClient);
+Packet* Connection::receive(Serwer *serwer, unsigned char *ssidValue) {
+    return Packet::packetFactory(clientSocket, serwer, ssidValue);
 }
 
 

@@ -11,6 +11,7 @@
 
 #include "packet.h"
 #include "consts.h"
+#include "log.h"
 
 
 class AddQueue {
@@ -29,8 +30,9 @@ public:
     long getMessagesInQueue();
 
     std::string getName();
+    mqd_t getQueueDescriptor();
 
-    void close();
+    int close();
     ~AddQueue();
 
 };

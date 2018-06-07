@@ -81,9 +81,33 @@ CMakeFiles/serwer.dir/main.cpp.o.provides: CMakeFiles/serwer.dir/main.cpp.o.requ
 CMakeFiles/serwer.dir/main.cpp.o.provides.build: CMakeFiles/serwer.dir/main.cpp.o
 
 
+CMakeFiles/serwer.dir/consts.cpp.o: CMakeFiles/serwer.dir/flags.make
+CMakeFiles/serwer.dir/consts.cpp.o: ../consts.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/serwer.dir/consts.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/consts.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp
+
+CMakeFiles/serwer.dir/consts.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serwer.dir/consts.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp > CMakeFiles/serwer.dir/consts.cpp.i
+
+CMakeFiles/serwer.dir/consts.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serwer.dir/consts.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp -o CMakeFiles/serwer.dir/consts.cpp.s
+
+CMakeFiles/serwer.dir/consts.cpp.o.requires:
+
+.PHONY : CMakeFiles/serwer.dir/consts.cpp.o.requires
+
+CMakeFiles/serwer.dir/consts.cpp.o.provides: CMakeFiles/serwer.dir/consts.cpp.o.requires
+	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/consts.cpp.o.provides.build
+.PHONY : CMakeFiles/serwer.dir/consts.cpp.o.provides
+
+CMakeFiles/serwer.dir/consts.cpp.o.provides.build: CMakeFiles/serwer.dir/consts.cpp.o
+
+
 CMakeFiles/serwer.dir/connection.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/connection.cpp.o: ../connection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/serwer.dir/connection.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/serwer.dir/connection.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/connection.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/connection.cpp
 
 CMakeFiles/serwer.dir/connection.cpp.i: cmake_force
@@ -107,7 +131,7 @@ CMakeFiles/serwer.dir/connection.cpp.o.provides.build: CMakeFiles/serwer.dir/con
 
 CMakeFiles/serwer.dir/RNG.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/RNG.cpp.o: ../RNG.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/serwer.dir/RNG.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/serwer.dir/RNG.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/RNG.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/RNG.cpp
 
 CMakeFiles/serwer.dir/RNG.cpp.i: cmake_force
@@ -131,7 +155,7 @@ CMakeFiles/serwer.dir/RNG.cpp.o.provides.build: CMakeFiles/serwer.dir/RNG.cpp.o
 
 CMakeFiles/serwer.dir/packet.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/packet.cpp.o: ../packet.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/serwer.dir/packet.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/serwer.dir/packet.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/packet.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/packet.cpp
 
 CMakeFiles/serwer.dir/packet.cpp.i: cmake_force
@@ -155,7 +179,7 @@ CMakeFiles/serwer.dir/packet.cpp.o.provides.build: CMakeFiles/serwer.dir/packet.
 
 CMakeFiles/serwer.dir/log.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/log.cpp.o: ../log.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/serwer.dir/log.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/serwer.dir/log.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/log.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/log.cpp
 
 CMakeFiles/serwer.dir/log.cpp.i: cmake_force
@@ -179,7 +203,7 @@ CMakeFiles/serwer.dir/log.cpp.o.provides.build: CMakeFiles/serwer.dir/log.cpp.o
 
 CMakeFiles/serwer.dir/privkey.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/privkey.cpp.o: ../privkey.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/serwer.dir/privkey.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/serwer.dir/privkey.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/privkey.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/privkey.cpp
 
 CMakeFiles/serwer.dir/privkey.cpp.i: cmake_force
@@ -203,7 +227,7 @@ CMakeFiles/serwer.dir/privkey.cpp.o.provides.build: CMakeFiles/serwer.dir/privke
 
 CMakeFiles/serwer.dir/pubkey.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/pubkey.cpp.o: ../pubkey.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/serwer.dir/pubkey.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/serwer.dir/pubkey.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/pubkey.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/pubkey.cpp
 
 CMakeFiles/serwer.dir/pubkey.cpp.i: cmake_force
@@ -227,7 +251,7 @@ CMakeFiles/serwer.dir/pubkey.cpp.o.provides.build: CMakeFiles/serwer.dir/pubkey.
 
 CMakeFiles/serwer.dir/sesskey.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/sesskey.cpp.o: ../sesskey.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/serwer.dir/sesskey.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/serwer.dir/sesskey.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/sesskey.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.cpp
 
 CMakeFiles/serwer.dir/sesskey.cpp.i: cmake_force
@@ -251,7 +275,7 @@ CMakeFiles/serwer.dir/sesskey.cpp.o.provides.build: CMakeFiles/serwer.dir/sesske
 
 CMakeFiles/serwer.dir/androidClient.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/androidClient.cpp.o: ../androidClient.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/serwer.dir/androidClient.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/serwer.dir/androidClient.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/androidClient.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.cpp
 
 CMakeFiles/serwer.dir/androidClient.cpp.i: cmake_force
@@ -271,30 +295,6 @@ CMakeFiles/serwer.dir/androidClient.cpp.o.provides: CMakeFiles/serwer.dir/androi
 .PHONY : CMakeFiles/serwer.dir/androidClient.cpp.o.provides
 
 CMakeFiles/serwer.dir/androidClient.cpp.o.provides.build: CMakeFiles/serwer.dir/androidClient.cpp.o
-
-
-CMakeFiles/serwer.dir/consts.cpp.o: CMakeFiles/serwer.dir/flags.make
-CMakeFiles/serwer.dir/consts.cpp.o: ../consts.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/serwer.dir/consts.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/consts.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp
-
-CMakeFiles/serwer.dir/consts.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serwer.dir/consts.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp > CMakeFiles/serwer.dir/consts.cpp.i
-
-CMakeFiles/serwer.dir/consts.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serwer.dir/consts.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp -o CMakeFiles/serwer.dir/consts.cpp.s
-
-CMakeFiles/serwer.dir/consts.cpp.o.requires:
-
-.PHONY : CMakeFiles/serwer.dir/consts.cpp.o.requires
-
-CMakeFiles/serwer.dir/consts.cpp.o.provides: CMakeFiles/serwer.dir/consts.cpp.o.requires
-	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/consts.cpp.o.provides.build
-.PHONY : CMakeFiles/serwer.dir/consts.cpp.o.provides
-
-CMakeFiles/serwer.dir/consts.cpp.o.provides.build: CMakeFiles/serwer.dir/consts.cpp.o
 
 
 CMakeFiles/serwer.dir/AddQueue.cpp.o: CMakeFiles/serwer.dir/flags.make
@@ -345,33 +345,9 @@ CMakeFiles/serwer.dir/ReadQueue.cpp.o.provides: CMakeFiles/serwer.dir/ReadQueue.
 CMakeFiles/serwer.dir/ReadQueue.cpp.o.provides.build: CMakeFiles/serwer.dir/ReadQueue.cpp.o
 
 
-CMakeFiles/serwer.dir/androidSequentions.cpp.o: CMakeFiles/serwer.dir/flags.make
-CMakeFiles/serwer.dir/androidSequentions.cpp.o: ../androidSequentions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/serwer.dir/androidSequentions.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/androidSequentions.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp
-
-CMakeFiles/serwer.dir/androidSequentions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serwer.dir/androidSequentions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp > CMakeFiles/serwer.dir/androidSequentions.cpp.i
-
-CMakeFiles/serwer.dir/androidSequentions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serwer.dir/androidSequentions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp -o CMakeFiles/serwer.dir/androidSequentions.cpp.s
-
-CMakeFiles/serwer.dir/androidSequentions.cpp.o.requires:
-
-.PHONY : CMakeFiles/serwer.dir/androidSequentions.cpp.o.requires
-
-CMakeFiles/serwer.dir/androidSequentions.cpp.o.provides: CMakeFiles/serwer.dir/androidSequentions.cpp.o.requires
-	$(MAKE) -f CMakeFiles/serwer.dir/build.make CMakeFiles/serwer.dir/androidSequentions.cpp.o.provides.build
-.PHONY : CMakeFiles/serwer.dir/androidSequentions.cpp.o.provides
-
-CMakeFiles/serwer.dir/androidSequentions.cpp.o.provides.build: CMakeFiles/serwer.dir/androidSequentions.cpp.o
-
-
 CMakeFiles/serwer.dir/queuePacket.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/queuePacket.cpp.o: ../queuePacket.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/serwer.dir/queuePacket.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/serwer.dir/queuePacket.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/queuePacket.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/queuePacket.cpp
 
 CMakeFiles/serwer.dir/queuePacket.cpp.i: cmake_force
@@ -395,7 +371,7 @@ CMakeFiles/serwer.dir/queuePacket.cpp.o.provides.build: CMakeFiles/serwer.dir/qu
 
 CMakeFiles/serwer.dir/DevDescriptor.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/DevDescriptor.cpp.o: ../DevDescriptor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/serwer.dir/DevDescriptor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/serwer.dir/DevDescriptor.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/DevDescriptor.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.cpp
 
 CMakeFiles/serwer.dir/DevDescriptor.cpp.i: cmake_force
@@ -419,7 +395,7 @@ CMakeFiles/serwer.dir/DevDescriptor.cpp.o.provides.build: CMakeFiles/serwer.dir/
 
 CMakeFiles/serwer.dir/serwer.cpp.o: CMakeFiles/serwer.dir/flags.make
 CMakeFiles/serwer.dir/serwer.cpp.o: ../serwer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/serwer.dir/serwer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/serwer.dir/serwer.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serwer.dir/serwer.cpp.o -c /home/s17kf/Pulpit/projekt_tin/serwer/serwer.cpp
 
 CMakeFiles/serwer.dir/serwer.cpp.i: cmake_force
@@ -444,6 +420,7 @@ CMakeFiles/serwer.dir/serwer.cpp.o.provides.build: CMakeFiles/serwer.dir/serwer.
 # Object files for target serwer
 serwer_OBJECTS = \
 "CMakeFiles/serwer.dir/main.cpp.o" \
+"CMakeFiles/serwer.dir/consts.cpp.o" \
 "CMakeFiles/serwer.dir/connection.cpp.o" \
 "CMakeFiles/serwer.dir/RNG.cpp.o" \
 "CMakeFiles/serwer.dir/packet.cpp.o" \
@@ -452,10 +429,8 @@ serwer_OBJECTS = \
 "CMakeFiles/serwer.dir/pubkey.cpp.o" \
 "CMakeFiles/serwer.dir/sesskey.cpp.o" \
 "CMakeFiles/serwer.dir/androidClient.cpp.o" \
-"CMakeFiles/serwer.dir/consts.cpp.o" \
 "CMakeFiles/serwer.dir/AddQueue.cpp.o" \
 "CMakeFiles/serwer.dir/ReadQueue.cpp.o" \
-"CMakeFiles/serwer.dir/androidSequentions.cpp.o" \
 "CMakeFiles/serwer.dir/queuePacket.cpp.o" \
 "CMakeFiles/serwer.dir/DevDescriptor.cpp.o" \
 "CMakeFiles/serwer.dir/serwer.cpp.o"
@@ -464,6 +439,7 @@ serwer_OBJECTS = \
 serwer_EXTERNAL_OBJECTS =
 
 serwer: CMakeFiles/serwer.dir/main.cpp.o
+serwer: CMakeFiles/serwer.dir/consts.cpp.o
 serwer: CMakeFiles/serwer.dir/connection.cpp.o
 serwer: CMakeFiles/serwer.dir/RNG.cpp.o
 serwer: CMakeFiles/serwer.dir/packet.cpp.o
@@ -472,16 +448,14 @@ serwer: CMakeFiles/serwer.dir/privkey.cpp.o
 serwer: CMakeFiles/serwer.dir/pubkey.cpp.o
 serwer: CMakeFiles/serwer.dir/sesskey.cpp.o
 serwer: CMakeFiles/serwer.dir/androidClient.cpp.o
-serwer: CMakeFiles/serwer.dir/consts.cpp.o
 serwer: CMakeFiles/serwer.dir/AddQueue.cpp.o
 serwer: CMakeFiles/serwer.dir/ReadQueue.cpp.o
-serwer: CMakeFiles/serwer.dir/androidSequentions.cpp.o
 serwer: CMakeFiles/serwer.dir/queuePacket.cpp.o
 serwer: CMakeFiles/serwer.dir/DevDescriptor.cpp.o
 serwer: CMakeFiles/serwer.dir/serwer.cpp.o
 serwer: CMakeFiles/serwer.dir/build.make
 serwer: CMakeFiles/serwer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable serwer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable serwer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/serwer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -490,6 +464,7 @@ CMakeFiles/serwer.dir/build: serwer
 .PHONY : CMakeFiles/serwer.dir/build
 
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/main.cpp.o.requires
+CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/consts.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/connection.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/RNG.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/packet.cpp.o.requires
@@ -498,10 +473,8 @@ CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/privkey.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/pubkey.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/sesskey.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/androidClient.cpp.o.requires
-CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/consts.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/AddQueue.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/ReadQueue.cpp.o.requires
-CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/androidSequentions.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/queuePacket.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/DevDescriptor.cpp.o.requires
 CMakeFiles/serwer.dir/requires: CMakeFiles/serwer.dir/serwer.cpp.o.requires

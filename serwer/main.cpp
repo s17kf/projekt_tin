@@ -25,13 +25,16 @@
 
 int main(int argc, char **argv){
     std::cout << "server started!" << std::endl;
-    if(argc<2){
-        std::cout<<"too little arguments, input configfile name"<<std::endl;
+    if(argc<3){
+        std::cout<<"too little arguments, input configfile name and verbosity of logs"<<std::endl;
         exit(1);
     }
 
+
+    int verbosity = atoi(argv[2]);
+
     std::string logfile = "serverlogfile.log";
-    initLog(logfile, 3);
+    initLog(logfile, verbosity);
 
     std::ifstream configfile(argv[1]);
 //    std::cout<<"here"<<std::endl;

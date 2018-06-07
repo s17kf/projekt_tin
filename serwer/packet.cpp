@@ -9,6 +9,7 @@
 #include "consts.h"
 #include "log.h"
 #include "androidClient.h"
+#include "serwer.h"
 
 
 int readTillDone(int soc_desc, unsigned char *buf, ssize_t msg_size) {
@@ -72,39 +73,41 @@ inline int encryptedLen(int plain_len) {
 
 
 
-Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) {
+Packet* Packet::packetFactory(int soc_desc, Serwer *serwer, unsigned char *ssidValue) {
     Packet *new_packet;
     int expected_size;
     unsigned char *encrypted;
     uint32_t plain_len;
     unsigned char is_crypted;
     unsigned char *new_buf;
+    log(5, "receiving packet ...");
 
     if(readTillDone(soc_desc, (unsigned char *) &plain_len, sizeof(plain_len)) < 1)
         return nullptr;
     if(readTillDone(soc_desc, &is_crypted, 1) < 1)
         return nullptr;
 //    std::cout<<"tu jestem"<<std::endl;
-
+    Sesskey * sesskey;
     if(is_crypted){
-//        if(androidClient->getSesskey() == nullptr) {
-//            printf("Received encrypted message before setting session key.\n");
-//            exit(23);
-//        }
+        log(5, "received encrypted packet header ...");
         unsigned char ssid_buf[2];
         if(readTillDone(soc_desc, ssid_buf, 2) < 1)
             return nullptr;
         SSID *ssid = new SSID(ssid_buf);
         //TODO: find proper ssid in existing android clients
-        if(ssid->getValue() != androidClient->getSsidValue()){
-            std::cout<<"bad ssid received (packet.cpp l184)"<<std::endl;
-            exit(21);
+        //TODO: juz chyba jest
+        *ssidValue = ssid->getValue();
+        sesskey = serwer->getSesskey(ssid->getValue());
+        if(sesskey == nullptr){
+            log(1, "Received encrypted msg with invalid ssid");
+            return nullptr;
         }
 
         expected_size = encryptedLen(plain_len-2);
     }else{
        // std::cout<<"TODO: Not encrypted for now error"<<std::endl;
         //TODO: when more than one client will be
+        log(4, "received header of non encrypted packet ...");
         expected_size = plain_len;
     }
 
@@ -118,12 +121,25 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
 
     if(is_crypted) {
 //        std::cout<<"tu jestem21"<<std::endl;
-        androidClient->getSesskey()->decrypt(new_buf, encrypted, expected_size);
+        sesskey->decrypt(new_buf, encrypted, expected_size);
         log(4, "Received encrypted packet, plaintext length = %d, encrpypted length = %d.",
             plain_len, encryptedLen(plain_len));
     } else{
         //TODO: check if packed should be encrypted
-        memcpy(new_buf, encrypted, expected_size);
+        switch (encrypted[0]){
+            case (PCK_CHALL):
+                new_packet = CHALL::createFromMessage(encrypted);
+                break;
+            case (PCK_KEY):
+                new_packet = KEY::createFromMessage(encrypted);
+                break;
+            default:
+                log(1, "Received not encrypted packet which should be encrypted, packet id: %d", encrypted[0]);
+        }
+        delete[] new_buf;
+        delete[] encrypted;
+
+        return new_packet;
     }
 
 //    std::cout<<"tu jestem3"<<std::endl;
@@ -137,15 +153,15 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
         case PCK_NAK:
             new_packet = new NAK(new_buf);
             break;
-        case PCK_CHALL:
-            new_packet= CHALL::createFromMessage(new_buf);
-            break;
+//        case PCK_CHALL:
+//            new_packet= CHALL::createFromMessage(new_buf);
+//            break;
         case PCK_CHALL_RESP:
             new_packet = CHALL_RESP::createFromMessage(new_buf);
             break;
-        case PCK_KEY:
-            new_packet = KEY::createFromMessage(new_buf);
-            break;
+//        case PCK_KEY:
+//            new_packet = KEY::createFromMessage(new_buf);
+//            break;
         case PCK_LOG:
             new_packet = new LOG(new_buf);
             break;
@@ -167,10 +183,11 @@ Packet* Packet::packetFactory(int soc_desc, const AndroidClient *androidClient) 
         case PCK_SERVICES:
             new_packet = new SERVICES(new_buf);
             break;
-        case PCK_SSID:
-            std::cout<<"ssid as encrypted part of EncryptedWithSsid or other error";
+//        case PCK_SSID:
+//            std::cout<<"ssid as encrypted part of EncryptedWithSsid or other error";
         default:
-            std::cout<<"wrong packet received :("<<std::endl;
+            log(1, "received encrypted packet which should be not, packet id: %d", new_buf[0]);
+//            std::cout<<"wrong packet received :("<<std::endl;
 
 
     }
@@ -187,6 +204,7 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     int32_t encrypted_size = encryptedLen(buf_size);
     encrypted = new unsigned char[encrypted_size];
     sesskey->encrypt(encrypted, buf, buf_size);
+    log(5, "Packet encrypted before sending");
     unsigned char msg[encrypted_size+5];
     memcpy(msg, &buf_size , sizeof(uint32_t));
     memcpy(&msg[4], &boolean, 1);

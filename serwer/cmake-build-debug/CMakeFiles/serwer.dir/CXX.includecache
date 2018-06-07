@@ -23,6 +23,8 @@ packet.h
 /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
 consts.h
 /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+log.h
+/home/s17kf/Pulpit/projekt_tin/serwer/log.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.cpp
 DevDescriptor.h
@@ -71,6 +73,8 @@ packet.h
 /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
 consts.h
 /home/s17kf/Pulpit/projekt_tin/serwer/consts.h
+log.h
+/home/s17kf/Pulpit/projekt_tin/serwer/log.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.cpp
 cstring
@@ -85,12 +89,6 @@ packet.h
 /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
 privkey.h
 /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
-
-/home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp
-androidSequentions.h
-/home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
-DevDescriptor.h
-/home/s17kf/Pulpit/projekt_tin/serwer/DevDescriptor.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
 vector
@@ -205,6 +203,8 @@ log.h
 /home/s17kf/Pulpit/projekt_tin/serwer/log.h
 androidClient.h
 /home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h
+serwer.h
+/home/s17kf/Pulpit/projekt_tin/serwer/serwer.h
 
 /home/s17kf/Pulpit/projekt_tin/serwer/packet.h
 iostream
@@ -267,6 +267,8 @@ vector
 -
 queue
 -
+map
+-
 privkey.h
 /home/s17kf/Pulpit/projekt_tin/serwer/privkey.h
 DevDescriptor.h
@@ -279,8 +281,6 @@ connection.h
 /home/s17kf/Pulpit/projekt_tin/serwer/connection.h
 androidSequentions.h
 /home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h
-map
--
 
 /home/s17kf/Pulpit/projekt_tin/serwer/sesskey.cpp
 sesskey.h

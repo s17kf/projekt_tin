@@ -116,12 +116,6 @@
 		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/androidClient.h">
 			<Option target="serwer"/>
 		</Unit>
-		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp">
-			<Option target="serwer"/>
-		</Unit>
-		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.h">
-			<Option target="serwer"/>
-		</Unit>
 		<Unit filename="/home/s17kf/Pulpit/projekt_tin/serwer/connection.cpp">
 			<Option target="serwer"/>
 		</Unit>

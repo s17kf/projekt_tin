@@ -16,7 +16,7 @@ class AndroidClient {
     unsigned char ssidValue;
 public:
 //    AndroidClient( const unsigned char *key_encrypted, Privkey *privkey, unsigned char ssid_value);
-    AndroidClient(Sesskey session_key, Privkey *privkey, unsigned char ssid_value);
+    AndroidClient(Sesskey session_key, unsigned char ssid_value);
     //    SSID *getSsid();
     AndroidClient();
 

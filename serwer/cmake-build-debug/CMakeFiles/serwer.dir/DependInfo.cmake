@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/s17kf/Pulpit/projekt_tin/serwer/RNG.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/RNG.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/ReadQueue.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/ReadQueue.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/androidClient.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/androidClient.cpp.o"
-  "/home/s17kf/Pulpit/projekt_tin/serwer/androidSequentions.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/androidSequentions.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/connection.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/connection.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/consts.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/consts.cpp.o"
   "/home/s17kf/Pulpit/projekt_tin/serwer/log.cpp" "/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir/log.cpp.o"

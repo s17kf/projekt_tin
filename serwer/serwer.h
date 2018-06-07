@@ -10,6 +10,7 @@
 #include <thread>
 #include <vector>
 #include <queue>
+#include <map>
 #include "privkey.h"
 #include "DevDescriptor.h"
 #include "packet.h"
@@ -17,23 +18,36 @@
 #include "connection.h"
 
 #include "androidSequentions.h"
-#include <map>
 
 
 class Serwer {
     Privkey privkey;
-    std::map<unsigned char, DevDescriptor> devices;
     AddQueue addQueue;
     ReadQueue readQueue;
-    AndroidClient androidClient;
+    int portNr;
+    std::map<unsigned char, DevDescriptor> devices;
+    std::map<unsigned char, AndroidClient*> clients;
+
+//    AndroidClient androidClient;
     std::queue<Packet *> queueToAndroid;
-    std::queue<Packet *> queueFromAndroid;
+//    std::queue<Packet *> queueFromAndroid;
 
     std::thread mqReceiver;
 
-    int portNr;
+
 //    std::thread mqSender;
 //    std::thread androidController;
+
+    int logInSequence(Connection *connection, Privkey *privkey, Serwer *serwer, CHALL *chall );
+    int endSessionSequence(Connection *connection, Serwer *serwer, unsigned char ssidValue);
+    int servicesSequence(Connection *connection, const AndroidClient *androidClient,
+                         std::map<unsigned char, DevDescriptor> *devices);
+    int getSequence(Connection *connection, Serwer *serwer, unsigned char ssidValue,
+                    GET *get, std::queue<Packet *> *queueToAndroid,
+                    std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
+    int setSequence(Connection *connection, const AndroidClient *androidClient, SET *set,
+                    std::queue<Packet *> *queueToAndroid,
+                    std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
 
 public:
     explicit Serwer(const char *privkeyFile, int portNr);
@@ -43,6 +57,13 @@ public:
 //    void androidControlLoop(int portNr);
 
     void mainLoop();
+
+    const AndroidClient *getClient(const unsigned char ssidValue);
+
+    int addClient(const unsigned char ssidValue, Sesskey *sesskey);
+    Sesskey *getSesskey(unsigned char ssidValue);
+    int removeClient(unsigned char ssidValue);
+
 
     ~Serwer();
 

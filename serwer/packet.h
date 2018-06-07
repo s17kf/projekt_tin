@@ -12,8 +12,10 @@
 #include "sesskey.h"
 
 
+
 class Sesskey;
 class AndroidClient;
+class Serwer;
 
 
 
@@ -39,7 +41,7 @@ protected:
     Packet(const unsigned char *buf_in, uint32_t buf_len);
     explicit Packet(size_t size) ;
 public:
-    static Packet *packetFactory(int soc_desc, const AndroidClient *androidClient);
+    static Packet *packetFactory(int soc_desc, Serwer *serwer, unsigned char *ssidValue);
     virtual ~Packet();
     virtual ssize_t send(int soc_desc, const Sesskey *sesskey) const = 0;
 

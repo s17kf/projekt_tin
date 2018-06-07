@@ -20,8 +20,8 @@ public:
     DevDescriptor(unsigned char dev_id, unsigned char dev_class, std::string dev_name, \
         std::string dev_unit, float min_value, float max_value) : id(dev_id), \
         clas(dev_class), name(dev_name), unit(dev_unit), min(min_value), max(max_value) {}
-    DevDescriptor(DESC *desc) : DevDescriptor(desc->getDeviceId(), desc->getDeviceClass(), \
-        desc->getName(), desc->getUnit(), desc->getMin(), desc->getMax()) {}
+//    explicit DevDescriptor(DESC *desc) : DevDescriptor(desc->getDeviceId(), desc->getDeviceClass(), \
+//        desc->getName(), desc->getUnit(), desc->getMin(), desc->getMax()) {}
     DevDescriptor(Q_DESC *qDesc) : DevDescriptor(qDesc->getDeviceId(), qDesc->getDeviceClass(), \
         qDesc->getName(), qDesc->getUnit(), qDesc->getMin(), qDesc->getMax()) {}
     unsigned char getId() const;
