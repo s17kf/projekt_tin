@@ -8,9 +8,8 @@
 ReadQueue::ReadQueue(const std::string name, int oflags) {
     queueDescriptor = mq_open(name.c_str(), oflags);
     queueName = name;
-    CHECK(queueDescriptor != (mqd_t)-1);
-
-//    CHECK(mq_getattr(queueDescriptor, attributes) == 0);
+    if(queueDescriptor == (mqd_t)-1)
+        log(2, "Openong addQueue %s error: %s", name, strerror(errno));
 
     lastMsg = new char[getMsgSize()+1];
 
@@ -22,9 +21,8 @@ ReadQueue::ReadQueue(const std::string name, int oflags, int queueMode, int msgS
     attributes->mq_msgsize = msgSize;
     attributes->mq_maxmsg = maxMsgs;
 
-//    std::cout<<01<<std::endl;
     queueDescriptor = mq_open(name.c_str(), oflags, queueMode, attributes);
-//    std::cout<<02<<std::endl;
+
     queueName = name;
     CHECK(queueDescriptor != (mqd_t)-1);
 
@@ -32,11 +30,7 @@ ReadQueue::ReadQueue(const std::string name, int oflags, int queueMode, int msgS
 
 }
 
-//std::string ReadQueue::readToString() {
-//
-//    return readToCharArray();
-//
-//}
+
 
 int ReadQueue::readToCharArray(char *dest) {
 

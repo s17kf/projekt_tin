@@ -502,9 +502,9 @@ unsigned char SET::getId() const {
 //    return buf[1];
 //}
 
-void Packet::print() {
-    hex_print(buf, buf_size);
-}
+//void Packet::print() {
+//    hex_print(buf, buf_size);
+//}
 
 
 

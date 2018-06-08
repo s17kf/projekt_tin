@@ -29,15 +29,9 @@ class Serwer {
     std::map<unsigned char, AndroidClient*> clients;
     std::map<std::string, std::string> users;
 
-//    AndroidClient androidClient;
     std::queue<Packet *> queueToAndroid;
-//    std::queue<Packet *> queueFromAndroid;
 
     std::thread mqReceiver;
-
-
-//    std::thread mqSender;
-//    std::thread androidController;
 
     int logInSequence(Connection *connection, Privkey *privkey, Serwer *serwer, CHALL *chall );
     int endSessionSequence(Connection *connection, Serwer *serwer, unsigned char ssidValue);
@@ -61,8 +55,7 @@ public:
 
     static bool testLoginFile(const char *filename);
     void mqReceiveLoop();
-//    void mqSendLoop();
-//    void androidControlLoop(int portNr);
+
 
     void mainLoop();
 

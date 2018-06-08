@@ -9,7 +9,7 @@ AddQueue::AddQueue(const std::string name, int oflags) {
     queueDescriptor = mq_open(name.c_str(), oflags);
     queueName = name;
     if(queueDescriptor == (mqd_t)-1)
-        log(4, "Openong addQueue error: ", strerror(errno));
+        log(2, "Openong addQueue %s error: %s", name, strerror(errno));
 
 }
 
@@ -23,7 +23,7 @@ AddQueue::AddQueue(const std::string name, int oflags, int queueMode, int msgSiz
 
     queueName = name;
     if(queueDescriptor == (mqd_t)-1)
-        log(4, "Openong addQueue error: ", strerror(errno));
+        log(2, "Openong addQueue %s error: %s", name, strerror(errno));
 
 
 }
@@ -34,6 +34,7 @@ int AddQueue::addMessage(std::string msg) {
 
 int AddQueue::addMessage(const char *msg, int msgSize) {
     return mq_send(queueDescriptor, msg, msgSize, 0);
+
 }
 
 mqd_t AddQueue::getQueueDescriptor() {

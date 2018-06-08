@@ -45,8 +45,8 @@ public:
     virtual ~Packet();
     virtual ssize_t send(int soc_desc, const Sesskey *sesskey) const = 0;
 
-    //TODO: it should be deleted?
-    virtual void print();
+
+//    virtual void print();
 };
 
 
