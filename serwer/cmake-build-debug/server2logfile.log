@@ -1,4 +1,10 @@
-2018-06-08 11:49:56 [LOG_LEVEL = 3] Opening logfile server2logfile.log succeed.
-2018-06-08 11:49:56 [LOG_LEVEL = 5] configfile opened
-2018-06-08 11:49:56 [LOG_LEVEL = 5] Queue add descriptor: 5
-2018-06-08 11:49:56 [LOG_LEVEL = 1] Server registered on port: 4003
+2018-06-08 17:44:03 [LOG_LEVEL = 3] Opening logfile server2logfile.log succeed.
+2018-06-08 17:44:03 [LOG_LEVEL = 5] configfile opened
+2018-06-08 17:44:03 [LOG_LEVEL = 5] config file file name: PJÿUU opened
+2018-06-08 17:44:03 [LOG_LEVEL = 5] Queue add descriptor: 5
+2018-06-08 17:44:03 [LOG_LEVEL = 3] user ðfÿ¤þ added
+2018-06-08 17:44:03 [LOG_LEVEL = 3] user ðfÿ¤þ added
+2018-06-08 17:44:03 [LOG_LEVEL = 3] user ðfÿ¤þ added
+2018-06-08 17:44:03 [LOG_LEVEL = 3] user ðfÿ¤þ not added
+2018-06-08 17:44:03 [LOG_LEVEL = 3] Added 3 users
+2018-06-08 17:44:03 [LOG_LEVEL = 1] Error occurred during binding socket on port 4003

@@ -5,7 +5,7 @@
 #include <fstream>
 #include "serwer.h"
 
-Serwer::Serwer(const char *privkeyFile, int port, const char *fileName,
+Serwer::Serwer(const char *privkeyFile, int port, const char *loginFileName,
                const char *addQueueName, const char *readQueueName) :
         privkey(privkeyFile),
         addQueue(addQueueName, O_WRONLY),
@@ -15,6 +15,8 @@ Serwer::Serwer(const char *privkeyFile, int port, const char *fileName,
 
     log(5, "Queue add descriptor: %d", addQueue.getQueueDescriptor());
 
+    int usersCount = loadLoginFile(loginFileName);
+    log(3, "Added %d users", usersCount);
 
 
 }
@@ -63,6 +65,7 @@ int Serwer::removeClient(unsigned char ssidValue) {
     }
 
     clients.erase(iter);
+    log(3, "client deleted");
     return 0;
 }
 
@@ -164,32 +167,16 @@ void Serwer::mqReceiveLoop() {
     while(true) {
         QueuePacket *packetFromGonzo = QueuePacket::packetFromQueue(&readQueue);
         if (packetFromGonzo != nullptr) {
-//            std::cout<<"msg in queue from Gonzo"<<std::endl;
 
-//            std::cout<<"msg read"<<std::endl;
             if (Q_DESC *q_desc = dynamic_cast<Q_DESC *>(packetFromGonzo)) {
-                std::cout << "Received descriptor from Gonzo" << std::endl;
-                std::cout << "dev id: ";
-                hex_print_noendl(q_desc->getDeviceId());
-                std::cout << "dev class: ";
-                hex_print_noendl(q_desc->getDeviceClass());
-                std::cout << "dev name: " << q_desc->getName()<< "dev unit: " << q_desc->getUnit();
-                std::cout << "min value: " << q_desc->getMin();
-                std::cout << "max vaalue: " << q_desc->getMax() << std::endl;
 
-                DevDescriptor *devDescriptor = new DevDescriptor(q_desc);
-                devices.insert(std::pair<unsigned char, DevDescriptor*>(devDescriptor->getId(),
-                                                                       devDescriptor));
+                DevDescriptor *newDev = new DevDescriptor(q_desc);
+                devices.insert(std::pair<unsigned char, DevDescriptor*>(newDev->getId(),
+                                                                       newDev));
 
-                std::cout << "all devices:" << std::endl;
-                for (auto iter = devices.begin(); iter!=devices.end(); iter++) {
-                    std::cout << "id: ";
-                    hex_print_noendl(iter->second->getId());
-                    std::cout << "class: ";
-                    hex_print_noendl(iter->second->getClass());
-                    std::cout << iter->second->getName() << " " << iter->second->getUnit() << " ";
-                    std::cout << iter->second->getMin() << " " << iter->second->getMax() << std::endl;
-                }
+                log(2, "New device registered: id %d, class %d, name %s, unit %s, min %f, max %f",
+                    newDev->getId(), newDev->getClass(), newDev->getName(), newDev->getUnit(),
+                    newDev->getMin(), newDev->getMax());
 
             } else if (Q_VAL *q_val = dynamic_cast<Q_VAL *>(packetFromGonzo)) {
                 std::cout << "received value from gonzo" << std::endl;
@@ -199,41 +186,22 @@ void Serwer::mqReceiveLoop() {
                 std::cout << "time stamp: " << q_val->getTimestamp() << std::endl;
                 queueToAndroid.push(new VAL(q_val->getServiceId(), q_val->getValue(), q_val->getTimestamp()));
             } else if (Q_EXIT *q_exit = dynamic_cast<Q_EXIT *>(packetFromGonzo)) {
-
-                auto iter = devices.find(q_exit->getId());
-
-                if(iter!=devices.end()){
-                    devices.erase(iter);
-                    std::cout<<"device id: ";
-                    hex_print_noendl(q_exit->getId());
-                    std::cout<<" deleted"<<std::endl;
-                    std::cout << "all devices:" << std::endl;
-                    for (auto itt = devices.begin();itt!=devices.end(); itt++) {
-                        std::cout << "id: ";
-                        hex_print_noendl(itt->second->getId());
-                        std::cout << "class: ";
-                        hex_print_noendl(itt->second->getClass());
-                        std::cout << itt->second->getName() << " " << itt->second->getUnit() << " ";
-                        std::cout << itt->second->getMin() << " " << itt->second->getMax() << std::endl;
-                    }
-                    std::cout<<"no more devices"<<std::endl;
-                }else{
+                if(deleteDevice(q_exit->getId()) < 0)
                     log(2, "read exit from mq of non existing device id: %d", q_exit->getId());
-                }
 
-                std::cout << "received exit from Gonzo, exit id: ";
-                hex_print(q_exit->getId());
             }else if (Q_NAK *q_nak = dynamic_cast<Q_NAK *>(packetFromGonzo)) {
+                log(3, "read nak from mq queue nak id: %d", q_nak->getId());
+                if(deleteDevice(q_nak->getId()) < 0)
+                    log(2, "read exit from mq of non existing device id: %d", q_nak->getId());
 
-                std::cout << "received nak from Gonzo, nak id: ";
-                hex_print(q_nak->getId());
             }else{
-                std::cout<<"received wrong packet from Gonzo: "<<std::endl;
-                packetFromGonzo->print();
+                log(1, "read bad packet type from mq qgueue");
+//                packetFromGonzo->print();
             }
 
         } else {
-            std::cout << "some read error on mq queue" << std::endl;
+//            std::cout << "some read error on mq queue" << std::endl;
+            log(1, "read error on mq queue");
         }
 
     }
@@ -245,8 +213,6 @@ void Serwer::mqReceiveLoop() {
 int Serwer::logInSequence(Connection *connection, Privkey *privkey, Serwer *serwer, CHALL *chall ){
     Packet *received_packet;
     RNG rng;
-
-
 
     unsigned char chall_value[8];
     memcpy(chall_value, chall->getChall(), 8);
@@ -303,21 +269,71 @@ int Serwer::logInSequence(Connection *connection, Privkey *privkey, Serwer *serw
         //TODO service or meybe reurned value is good
         return -2;
     }
-    unsigned char login[31];
-    unsigned char password[31];
-    if(LOG *log = dynamic_cast<LOG *>(received_packet)){
-        memcpy(login, log->getLogin(), 31);
-        memcpy(password, log->getPassword(), 31);
-        std::cout<<"login received"<<std::endl;
-        std::cout<<login<<std::endl;
-        std::cout<<password<<std::endl;
+    char loginUnsig[31];
+    unsigned char passwordUnsig[31];
+//    std::string login(31, 'c');
+//    std::string password(31, 'c');
+
+    if(LOG *logPacket = dynamic_cast<LOG *>(received_packet)){
+//        memcpy(&loginUnsig, logPacket->getLogin(), 31);
+//        memcpy(&password, logPacket->getPassword(), 31);
+//        std::cout<<"login received"<<std::endl;
+        std::string login((char *)logPacket->getLogin());
+        std::string password((char *)logPacket->getPassword());
+//        int login_len =0;
+//        std::string login(login_len, 'c');
+//        for(; loginUnsig[login_len]!='\0';++login_len);
+//        int i = 0;
+//        for(; loginUnsig[i]!='\0'; ++i){
+//            login[i] = loginUnsig[i];
+//        }
+//        login[i] = loginUnsig[i];
+
+        log(2, "new user %s want to log in", login);
+        std::cout<<login<<" "<<password<<std::endl;
+
+
+        if(findUser(login)){
+            if(checkPassword(login, password)){
+//                addClient(ssidValue, sesskey);
+            }else{
+                log(2, "try to log in with wrong password");
+                /*sending NAK after bad received */
+                unsigned char nak_id = 0x02;
+                NAK *nak = new NAK(nak_id);
+                connection->send(nak, serwer->getSesskey(ssid_value));
+                std::cout<<"nak sent"<<std::endl;
+                delete nak;
+
+                removeClient(ssid_value);
+                return 0;
+
+            }
+
+
+        }else{
+            log(2, "try to log in on no existing login");
+
+            /*sending NAK after bad received */
+            unsigned char nak_id = 0x01;
+            NAK *nak = new NAK(nak_id);
+            connection->send(nak, serwer->getSesskey(ssid_value));
+            std::cout<<"nak sent"<<std::endl;
+            delete nak;
+
+            removeClient(ssid_value);
+            return 0;
+        }
+
     }else{
-        std::cout<<"invslid login main.cpp l56, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
+
+//        std::cout<<"invslid login main.cpp l56, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
         return -1;
     }
 
 
-    /*sending ACK after sesskey received */
+    serwer->addClient(ssid_value, sesskey);
+    /*sending ACK after login received */
     unsigned char ack_id = 0x01;
     ACK *ack = new ACK(ack_id);
     connection->send(ack, serwer->getSesskey(ssid_value));
@@ -354,6 +370,7 @@ int Serwer::servicesSequence(Connection *connection, const AndroidClient *androi
         desc->print();
         Q_GET *q_get = new Q_GET(desc->getDeviceId());
         q_get->addToQueue(&addQueue);
+        std::cout<<"get added";
         while(queueToAndroid.empty());
         if(VAL * val = dynamic_cast<VAL *>(queueToAndroid.front())){
 //            std::cout<<"timestamp: "<<val->getTimestamp()<<std::endl;
@@ -480,7 +497,7 @@ int Serwer::setSequence(Connection *connection, const AndroidClient *androidClie
 }
 
 bool Serwer::testLoginFile(const char *filename) {
-    std::ifstream file;
+    std::ifstream file(filename);
     if(!file.is_open()){
         log(2, "cannot open login file");
         return false;
@@ -500,19 +517,47 @@ bool Serwer::testLoginFile(const char *filename) {
 
 
 int Serwer::loadLoginFile(const char *filename) {
-    std::ifstream file;
+    std::ifstream file(filename);
     if(!file.is_open()){
         return -1;
     }
     int readRecords = 0;
     std::string login, password;
-    //while(file>>)
+    while(file>>login){
+        file>>password;
+        bool inserted = users.insert(std::pair<std::string, std::string>(login, password) ).second;
+        if(inserted){
+            log(3, "user %s added", login);
+            ++readRecords;
+        }else{
+            log(3, "user %s not added", login);
+        }
+    }
 
 
     return readRecords;
 }
 
+int Serwer::deleteDevice(const char devId) {
+    auto iter = devices.find(devId);
+    if(iter!=devices.end()){
+        devices.erase(iter);
+        log(2, "device id %d deleted", devId);
+        return 0;
+    }else{
+        return -1;
+    }
+}
 
+bool Serwer::findUser(std::string login) {
+//    auto iter = users.find(login);
+    return users.find(login) != users.end();
+}
+
+bool Serwer::checkPassword(std::string login, std::string password) {
+    auto iter = users.find(login);
+    return iter->second == password;
+}
 
 
 

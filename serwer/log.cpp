@@ -30,7 +30,7 @@ void log(int level, const char *fmt, ...) {
     }
     if (level <= verbosity) {
         printf("%s ", timeBuf);
-        printf("[LOG_LEVEL = %d] ", level);
+        printf("[2LOG_LEVEL = %d] ", level);
         vprintf(fmt, args);
         printf("\n");
         fflush(stdout);

@@ -94,8 +94,6 @@ Packet* Packet::packetFactory(int soc_desc, Serwer *serwer, unsigned char *ssidV
         if(readTillDone(soc_desc, ssid_buf, 2) < 1)
             return nullptr;
         SSID *ssid = new SSID(ssid_buf);
-        //TODO: find proper ssid in existing android clients
-        //TODO: juz chyba jest
         *ssidValue = ssid->getValue();
         sesskey = serwer->getSesskey(ssid->getValue());
         if(sesskey == nullptr){
@@ -105,8 +103,6 @@ Packet* Packet::packetFactory(int soc_desc, Serwer *serwer, unsigned char *ssidV
 
         expected_size = encryptedLen(plain_len-2);
     }else{
-       // std::cout<<"TODO: Not encrypted for now error"<<std::endl;
-        //TODO: when more than one client will be
         log(4, "received header of non encrypted packet ...");
         expected_size = plain_len;
     }
@@ -125,7 +121,6 @@ Packet* Packet::packetFactory(int soc_desc, Serwer *serwer, unsigned char *ssidV
         log(4, "Received encrypted packet, plaintext length = %d, encrpypted length = %d.",
             plain_len, encryptedLen(plain_len));
     } else{
-        //TODO: check if packed should be encrypted
         switch (encrypted[0]){
             case (PCK_CHALL):
                 new_packet = CHALL::createFromMessage(encrypted);
@@ -206,7 +201,6 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     log(5, "Packet ready to encrypt plain %d, encrypted %d, packet id: %d", buf_size, encrypted_size, buf[0]);
 //    hex_print(buf, buf_size);
     sesskey->encrypt(encrypted, buf, buf_size);
-    log(5, "Packet encrypted before sending");
     unsigned char msg[encrypted_size+5];
     memcpy(msg, &buf_size , sizeof(uint32_t));
     memcpy(&msg[4], &boolean, 1);
@@ -219,8 +213,10 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
 //        return ret;
 //    ret = writeTillDone(soc_desc, encrypted, encrypted_size);
     delete[] encrypted;
+    log(5, "Packet encrypted before sending");
     ret = writeTillDone(soc_desc, msg, encrypted_size+5);
-    std::cout<<"sent "<<encrypted_size+5<<"bytes"<<std::endl;
+    log(4, "sent %d bytes", encrypted_size+5);
+//    std::cout<<"sent "<<encrypted_size+5<<"bytes"<<std::endl;
     return ret;
 }
 

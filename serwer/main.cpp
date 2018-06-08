@@ -32,7 +32,7 @@ int main(int argc, char **argv){
     }
 
 
-    int verbosity = atoi(argv[2]);
+//    int verbosity = atoi(argv[2]);
 
 
 
@@ -41,6 +41,7 @@ int main(int argc, char **argv){
     std::string privkeyFileName;
     int portNr;
     int logV;
+    std::string loginFileName = "login.in";
     Serwer *serwer;
     if(configfile.is_open()){
         try{
@@ -49,19 +50,20 @@ int main(int argc, char **argv){
                 exit(-1);
             }
             std::string logfile = "server2logfile.log";
-            initLog(logfile, verbosity);
+            initLog(logfile, logV);
 
             log(5,"configfile opened");
             if(!(configfile>>privkeyFileName)){
                 log(1, "missing privkey file name in configfile");
                 exit(-1);
             }
+            log(5, "config file file name: %s opened", privkeyFileName);
             if(!(configfile>>portNr)){
                 log(1, "missing port nr in configfile");
                 exit(-1);
             }
 //            std::cout<<portNr;
-            std::string loginFile;
+
 //            if(!(configfile>>loginFile)){
 //                log(1, "missing login file name");
 //                exit(-1);
@@ -71,9 +73,12 @@ int main(int argc, char **argv){
 //                exit(-1);
 //            }
 
-
-            serwer = new Serwer(privkeyFileName.c_str(), portNr, loginFile.c_str(),
-                    argv[2], argv[3]);
+            if( !Serwer::testLoginFile("login.in")){
+                log(1, "invalid login.in file");
+                exit(-1);
+            }
+            serwer = new Serwer(privkeyFileName.c_str(), portNr, loginFileName.c_str(),
+                    argv[3], argv[2]);
 
 
         }catch (...){

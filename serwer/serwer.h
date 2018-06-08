@@ -27,7 +27,7 @@ class Serwer {
     int portNr;
     std::map<unsigned char, DevDescriptor*> devices;
     std::map<unsigned char, AndroidClient*> clients;
-    std::map<std::string *, std::string*> users;
+    std::map<std::string, std::string> users;
 
 //    AndroidClient androidClient;
     std::queue<Packet *> queueToAndroid;
@@ -51,6 +51,9 @@ class Serwer {
                     std::map<unsigned char, DevDescriptor*> *devices, AddQueue *addQueue);
 
     int loadLoginFile(const char *filename);
+    int deleteDevice(const char devId);
+    bool findUser(std::string login);
+    bool checkPassword(std::string login, std::string password);
 
 public:
     explicit Serwer(const char *privkeyFile, int portNr, const char *loginFilename,
