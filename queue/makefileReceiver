@@ -1,3 +1,0 @@
-msgReceiver:
-	g++ main.cpp ReadQueue.cpp RNG.cpp sesskey.cpp  packet.cpp privkey.cpp log.cpp consts.cpp -lrt -lssl -lcrypto -o runMsgReceiver
-
