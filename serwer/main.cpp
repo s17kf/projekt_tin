@@ -26,7 +26,7 @@
 int main(int argc, char **argv){
     std::cout << "part2 of server running" << std::endl;
     if(argc<4){
-        std::cout<<"too little arguments, input configfile name and verbosity of logs"<<std::endl;
+        std::cout<<"too little arguments, input configfile name mq queues names: from other part to other part"<<std::endl;
         exit(1);
         //argumenty confname, readqueue, addqueue
     }

@@ -1,4 +1,4 @@
-2018-06-08 11:41:18 [LOG_LEVEL = 3] Opening logfile server2logfile.log succeed.
-2018-06-08 11:41:18 [LOG_LEVEL = 5] configfile opened
-2018-06-08 11:41:18 [LOG_LEVEL = 5] Queue add descriptor: 5
-2018-06-08 11:41:18 [LOG_LEVEL = 1] Server registered on port: 4003
+2018-06-08 11:49:56 [LOG_LEVEL = 3] Opening logfile server2logfile.log succeed.
+2018-06-08 11:49:56 [LOG_LEVEL = 5] configfile opened
+2018-06-08 11:49:56 [LOG_LEVEL = 5] Queue add descriptor: 5
+2018-06-08 11:49:56 [LOG_LEVEL = 1] Server registered on port: 4003
