@@ -25,8 +25,9 @@ class Serwer {
     AddQueue addQueue;
     ReadQueue readQueue;
     int portNr;
-    std::map<unsigned char, DevDescriptor> devices;
+    std::map<unsigned char, DevDescriptor*> devices;
     std::map<unsigned char, AndroidClient*> clients;
+    std::map<std::string *, std::string*> users;
 
 //    AndroidClient androidClient;
     std::queue<Packet *> queueToAndroid;
@@ -41,17 +42,21 @@ class Serwer {
     int logInSequence(Connection *connection, Privkey *privkey, Serwer *serwer, CHALL *chall );
     int endSessionSequence(Connection *connection, Serwer *serwer, unsigned char ssidValue);
     int servicesSequence(Connection *connection, const AndroidClient *androidClient,
-                         std::map<unsigned char, DevDescriptor> *devices);
+                         std::map<unsigned char, DevDescriptor*> *devices);
     int getSequence(Connection *connection, Serwer *serwer, unsigned char ssidValue,
                     GET *get, std::queue<Packet *> *queueToAndroid,
-                    std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
+                    std::map<unsigned char, DevDescriptor*> *devices, AddQueue *addQueue);
     int setSequence(Connection *connection, const AndroidClient *androidClient, SET *set,
                     std::queue<Packet *> *queueToAndroid,
-                    std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue);
+                    std::map<unsigned char, DevDescriptor*> *devices, AddQueue *addQueue);
+
+    int loadLoginFile(const char *filename);
 
 public:
-    explicit Serwer(const char *privkeyFile, int portNr);
+    explicit Serwer(const char *privkeyFile, int portNr, const char *loginFilename,
+                    const char *addQueueName, const char *readQueueName);
 
+    static bool testLoginFile(const char *filename);
     void mqReceiveLoop();
 //    void mqSendLoop();
 //    void androidControlLoop(int portNr);

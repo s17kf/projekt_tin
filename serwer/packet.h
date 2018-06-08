@@ -34,7 +34,7 @@ protected:
         PCK_SET = 0x0A,
         PCK_SSID = 0x0B,
         PCK_LOG = 0x0C,
-        PCK_SERVICES = 0x00D
+        PCK_SERVICES = 0x0D
     };
     unsigned char *buf;
     uint32_t buf_size;

@@ -203,6 +203,8 @@ ssize_t EncrptedPacket::send(int soc_desc, const Sesskey *sesskey) const {
     unsigned char boolean = (unsigned char) true;
     int32_t encrypted_size = encryptedLen(buf_size);
     encrypted = new unsigned char[encrypted_size];
+    log(5, "Packet ready to encrypt plain %d, encrypted %d, packet id: %d", buf_size, encrypted_size, buf[0]);
+//    hex_print(buf, buf_size);
     sesskey->encrypt(encrypted, buf, buf_size);
     log(5, "Packet encrypted before sending");
     unsigned char msg[encrypted_size+5];
@@ -412,8 +414,8 @@ DESC::DESC(unsigned char dev_id, unsigned char dev_class, const std::string &nam
         throw(std::runtime_error("Unit name is too long."));
     }
     buf[0] = PCK_DESC;
-    buf[1] = dev_id;
-    buf[2] = dev_class;
+    buf[1] = dev_class;
+    buf[2] = dev_id;
     memcpy(&buf[3], name.c_str(), name.size()+1);
     memcpy(&buf[buf_size-12], unit.c_str(), 4);
     memcpy(&buf[buf_size-8], &min, sizeof(float));
@@ -421,11 +423,11 @@ DESC::DESC(unsigned char dev_id, unsigned char dev_class, const std::string &nam
 }
 
 unsigned char DESC::getDeviceId() const {
-    return buf[1];
+    return buf[2];
 }
 
 unsigned char DESC::getDeviceClass() const {
-    return  buf[2];
+    return  buf[1];
 }
 
 const char* DESC::getName() const {

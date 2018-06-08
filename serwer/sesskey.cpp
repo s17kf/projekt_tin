@@ -12,18 +12,15 @@ Sesskey::Sesskey() {
     if (rng.generate(key, (size_t) 16) == -1) {
         log(3, "Unable to create sesskey.");
     }
-    /*if (!(ctx = EVP_CIPHER_CTX_new()))
-        log(3, "Unable to create OPENSSL context.\n");*/
     ctx = EVP_CIPHER_CTX_new();
 }
 Sesskey::Sesskey(const KEY &keyPck, const Privkey &privkey) {
-    /*if (!(ctx = EVP_CIPHER_CTX_new()))
-        log(3, "Unable to create OPENSSL context.\n");*/
     ctx = EVP_CIPHER_CTX_new();
-    if (privkey.decrypt(keyPck.getKeyBuf(), 256, key) == -1){
+    unsigned char buf[256];
+    if (privkey.decrypt(keyPck.getKeyBuf(), 256, buf) == -1){
         log(3, "Unable to decrypt session key");
     }
-//	memcpy(key, keyPck.getKeyBuf(), 16);
+	memcpy(key, buf, 16);
 }
 
 Sesskey::~Sesskey() {

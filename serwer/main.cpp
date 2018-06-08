@@ -24,26 +24,34 @@
 
 
 int main(int argc, char **argv){
-    std::cout << "server started!" << std::endl;
-    if(argc<3){
+    std::cout << "part2 of server running" << std::endl;
+    if(argc<4){
         std::cout<<"too little arguments, input configfile name and verbosity of logs"<<std::endl;
         exit(1);
+        //argumenty confname, readqueue, addqueue
     }
 
 
     int verbosity = atoi(argv[2]);
 
-    std::string logfile = "serverlogfile.log";
-    initLog(logfile, verbosity);
+
 
     std::ifstream configfile(argv[1]);
 //    std::cout<<"here"<<std::endl;
     std::string privkeyFileName;
     int portNr;
+    int logV;
     Serwer *serwer;
     if(configfile.is_open()){
-        log(5,"configfile opened");
         try{
+            if(!(configfile>>logV)){
+                std::cout<<"missing verbosity of logs in config file";
+                exit(-1);
+            }
+            std::string logfile = "server2logfile.log";
+            initLog(logfile, verbosity);
+
+            log(5,"configfile opened");
             if(!(configfile>>privkeyFileName)){
                 log(1, "missing privkey file name in configfile");
                 exit(-1);
@@ -53,18 +61,30 @@ int main(int argc, char **argv){
                 exit(-1);
             }
 //            std::cout<<portNr;
+            std::string loginFile;
+//            if(!(configfile>>loginFile)){
+//                log(1, "missing login file name");
+//                exit(-1);
+//            }
+//            if(!Serwer::testLoginFile(loginFile.c_str())){
+//                log(1, "invalid login file");
+//                exit(-1);
+//            }
 
-            serwer = new Serwer(privkeyFileName.c_str(), portNr);
+
+            serwer = new Serwer(privkeyFileName.c_str(), portNr, loginFile.c_str(),
+                    argv[2], argv[3]);
 
 
         }catch (...){
-            log(1, "unable to start server");
+            log(1, "unable to start server, try check config file");
             exit(-1);
         }
 
 
     }else{
-        log(1, "Unable to open configfile");
+        std::cout<<"Unable to open configfile";
+//        log(1, "Unable to open configfile");
         exit(-1);
     }
 

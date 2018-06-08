@@ -2,12 +2,15 @@
 // Created by s17kf on 06.06.18.
 //
 
+#include <fstream>
 #include "serwer.h"
 
-Serwer::Serwer(const char *privkeyFile, int port):privkey(privkeyFile),
-  addQueue(QUEUE_NAME_TO_GONZO, O_CREAT | O_WRONLY, QUEUE_MODE, MSG_SIZE, MAX_MSGS),
-  readQueue(QUEUE_NAME_FROM_GONZO, O_CREAT | O_RDONLY, QUEUE_MODE, MSG_SIZE, MAX_MSGS),
-  portNr(port)
+Serwer::Serwer(const char *privkeyFile, int port, const char *fileName,
+               const char *addQueueName, const char *readQueueName) :
+        privkey(privkeyFile),
+        addQueue(addQueueName, O_WRONLY),
+        readQueue(readQueueName, O_RDONLY),
+        portNr(port)
 {
 
     log(5, "Queue add descriptor: %d", addQueue.getQueueDescriptor());
@@ -174,18 +177,18 @@ void Serwer::mqReceiveLoop() {
                 std::cout << "min value: " << q_desc->getMin();
                 std::cout << "max vaalue: " << q_desc->getMax() << std::endl;
 
-                DevDescriptor devDescriptor(q_desc);
-                devices.insert(std::pair<unsigned char, DevDescriptor>(devDescriptor.getId(),
+                DevDescriptor *devDescriptor = new DevDescriptor(q_desc);
+                devices.insert(std::pair<unsigned char, DevDescriptor*>(devDescriptor->getId(),
                                                                        devDescriptor));
 
                 std::cout << "all devices:" << std::endl;
                 for (auto iter = devices.begin(); iter!=devices.end(); iter++) {
                     std::cout << "id: ";
-                    hex_print_noendl(iter->second.getId());
+                    hex_print_noendl(iter->second->getId());
                     std::cout << "class: ";
-                    hex_print_noendl(iter->second.getClass());
-                    std::cout << iter->second.getName() << " " << iter->second.getUnit() << " ";
-                    std::cout << iter->second.getMin() << " " << iter->second.getMax() << std::endl;
+                    hex_print_noendl(iter->second->getClass());
+                    std::cout << iter->second->getName() << " " << iter->second->getUnit() << " ";
+                    std::cout << iter->second->getMin() << " " << iter->second->getMax() << std::endl;
                 }
 
             } else if (Q_VAL *q_val = dynamic_cast<Q_VAL *>(packetFromGonzo)) {
@@ -207,60 +210,21 @@ void Serwer::mqReceiveLoop() {
                     std::cout << "all devices:" << std::endl;
                     for (auto itt = devices.begin();itt!=devices.end(); itt++) {
                         std::cout << "id: ";
-                        hex_print_noendl(itt->second.getId());
+                        hex_print_noendl(itt->second->getId());
                         std::cout << "class: ";
-                        hex_print_noendl(itt->second.getClass());
-                        std::cout << itt->second.getName() << " " << itt->second.getUnit() << " ";
-                        std::cout << itt->second.getMin() << " " << itt->second.getMax() << std::endl;
+                        hex_print_noendl(itt->second->getClass());
+                        std::cout << itt->second->getName() << " " << itt->second->getUnit() << " ";
+                        std::cout << itt->second->getMin() << " " << itt->second->getMax() << std::endl;
                     }
                     std::cout<<"no more devices"<<std::endl;
                 }else{
                     log(2, "read exit from mq of non existing device id: %d", q_exit->getId());
                 }
 
-//                for(auto it = devices.begin(); it!= devices.end(); it++){
-//                    if(it->getId() == q_exit->getId()){
-//                        devices.erase(it);
-//                        std::cout<<"device id: ";
-//                        hex_print_noendl(q_exit->getId());
-//                        std::cout<<" deleted"<<std::endl;
-//
-//                        std::cout << "all devices:" << std::endl;
-//                        for (auto itt = devices.begin();itt!=devices.end(); itt++) {
-//                            std::cout << "id: ";
-//                            hex_print_noendl(itt->getId());
-//                            std::cout << "class: ";
-//                            hex_print_noendl(itt->getClass());
-//                            std::cout << itt->getName() << " " << itt->getUnit() << " ";
-//                            std::cout << itt->getMin() << " " << itt->getMax() << std::endl;
-//                        }
-//                        std::cout<<"no more devices"<<std::endl;
-//                        break;
-//                    }
-//                }
                 std::cout << "received exit from Gonzo, exit id: ";
                 hex_print(q_exit->getId());
             }else if (Q_NAK *q_nak = dynamic_cast<Q_NAK *>(packetFromGonzo)) {
-//                for(auto it = devices.begin(); it!= devices.end(); it++){
-//                    if(it->getId() == q_nak->getId()){
-//                        devices.erase(it);
-//                        std::cout<<"device id: ";
-//                        hex_print_noendl(q_nak->getId());
-//                        std::cout<<" deleted"<<std::endl;
-//
-//                        std::cout << "all devices:" << std::endl;
-//                        for (auto itt = devices.begin();itt!=devices.end(); itt++) {
-//                            std::cout << "id: ";
-//                            hex_print_noendl(itt->getId());
-//                            std::cout << "class: ";
-//                            hex_print_noendl(itt->getClass());
-//                            std::cout << itt->getName() << " " << itt->getUnit() << " ";
-//                            std::cout << itt->getMin() << " " << itt->getMax() << std::endl;
-//                        }
-//                        std::cout<<"no more devices"<<std::endl;
-//                        break;
-//                    }
-//                }
+
                 std::cout << "received nak from Gonzo, nak id: ";
                 hex_print(q_nak->getId());
             }else{
@@ -276,104 +240,6 @@ void Serwer::mqReceiveLoop() {
 
 
 }
-
-
-//void Serwer::mqSendLoop() {
-//    while (true) {
-//
-//        if(!queueFromAndroid.empty()){
-//
-//            std::cout<<"queue from android is not empty"<<std::endl;
-//            queueFromAndroid.front()->print();
-//            if(GET *get = dynamic_cast<GET *> (queueFromAndroid.front())){
-//                Q_GET * q_get = new Q_GET(get->getId());
-//                q_get->addToQueue(&addQueue);
-//            }else if(SET *set = dynamic_cast<SET *>(queueFromAndroid.front())){
-//                Q_SET * q_set = new Q_SET(set->getId(), set->getValue());
-//                q_set->addToQueue(&addQueue);
-//            }else{
-//                std::cout<<"This packet should not be sent to Gonzo"<<std::endl;
-//                queueFromAndroid.front()->print();
-////                hex_print(queueFromAndroid.front()->getBuf(),queueFromAndroid.front()->getBufSize());
-//            }
-////            addQueue->addMessage(queueFromAndroid.front());
-//            queueFromAndroid.pop();
-//        }
-//
-//
-////        std::cout << "server thread" << std::endl;
-////        sleep(1);
-//    }
-//}
-
-//void Serwer::androidControlLoop(int portNr) {
-//    Connection *connection = new Connection(portNr);
-//    AndroidClient androidClient;
-//
-//    OPENSSL_config(nullptr);
-//    ERR_load_crypto_strings();
-//
-//
-//    Privkey *privkey = new Privkey("/home/s17kf/Pobrane/serwer_key-private.pem");
-//
-//
-//    while(true) {
-//
-//        if(connection->connect() <0){
-//            //TODO: error service
-//            std::cout<<"connecting error, #Error: "<<errno<<std::endl<<strerror(errno)<<std::endl;
-//            exit(1);
-//        }
-//
-//        Packet *received_packet = connection->receive(&androidClient);
-//        if(CHALL *chall = dynamic_cast<CHALL *>(received_packet)){
-//            std::cout<<"CHALL received -> go to log in sequence"<<std::endl;
-//            if(logInSequence(connection, privkey, &androidClient, chall) < 0){
-//                //TODO: service wrong login sewuence
-//                std::cout<<"Some error while log in"<<std::endl;
-//            }
-////            hex_print(androidClient.getSesskey(), 16);
-//        }else if(EOT *chall = dynamic_cast<EOT *>(received_packet)){
-//            std::cout<<"EOT received"<<std::endl;
-//            if(endSessionSequence(connection, &androidClient) < 0){
-//                //TODO: service wrong ending session sewuence
-//                std::cout<<"Some error while ending session"<<std::endl;
-//            }
-//            addQueue.close();
-//        }else if(SERVICES *services = dynamic_cast<SERVICES *> (received_packet)){
-//            std::cout<<"SERVICES received"<<std::endl;
-//            if(servicesSequence(connection, &androidClient, devices) < 0){
-//                //TODO
-//                std::cout<<"Some error while descriptors sending"<<std::endl;
-//            }
-//        }else if(GET * get = dynamic_cast<GET *>(received_packet)){
-//            std::cout<<"GET received, get id: ";
-//            hex_print(get->getId());
-//            get->print();
-//            if(getSequence(connection, &androidClient, get, &queueFromAndroid, &queueToAndroid, &devices, &addQueue) < 0){
-//                //TODO
-//                std::cout<<"Some error during get sequence"<<std::endl;
-//            }
-//        }else if(SET * set = dynamic_cast<SET *>(received_packet)){
-//            std::cout<<"SET received:"<<std::endl;
-////            hex_print(set->getBuf(), set->getBufSize());
-//            set->print();
-//            if(setSequence(connection, &androidClient, set, &queueFromAndroid, &queueToAndroid, &devices) < 0){
-//                //TODO
-//                std::cout<<"Some error during set sequence"<<std::endl;
-//            }
-//        }
-//
-//
-//        std::cout << "android thread" << std::endl;
-////        sleep(1);
-//
-//
-//
-//    }
-//}
-
-
 
 
 int Serwer::logInSequence(Connection *connection, Privkey *privkey, Serwer *serwer, CHALL *chall ){
@@ -430,9 +296,10 @@ int Serwer::logInSequence(Connection *connection, Privkey *privkey, Serwer *serw
     unsigned char ssidValue;
     /*LOG receiving and checking login and password*/
     received_packet = connection->receive(serwer, &ssidValue);
-    std::cout<<"log packet received"<<std::endl;
+//    std::cout<<"log packet received"<<std::endl;
     if(received_packet == nullptr){
-        std::cout<<"nullptr received"<<std::endl;
+//        std::cout<<"nullptr received"<<std::endl;
+        log(2, "nullptr received, expected LOG packet");
         //TODO service or meybe reurned value is good
         return -2;
     }
@@ -478,17 +345,32 @@ int Serwer::endSessionSequence(Connection *connection, Serwer *serwer, unsigned 
     return 0;
 }
 
-int Serwer::servicesSequence(Connection *connection, const AndroidClient *androidClient, std::map<unsigned char, DevDescriptor> *devices){
+int Serwer::servicesSequence(Connection *connection, const AndroidClient *androidClient, std::map<unsigned char, DevDescriptor*> *devices){
 
-//    for( DESC * desc : devices){
-//    for(DevDescriptor descriptor : *devices){
     for(auto iter = devices->begin();iter!=devices->end();iter++){
-        DESC * desc = new DESC(iter->second.getId(), iter->second.getClass(), iter->second.getName(), iter->second.getUnit(), iter->second.getMin(), iter->second.getMax());
+        DESC * desc = new DESC(iter->second->getId(), iter->second->getClass(), iter->second->getName(), iter->second->getUnit(), iter->second->getMin(), iter->second->getMax());
         connection->send(desc, androidClient->getSesskey());
+        log(3, "desc sent");
+        desc->print();
+        Q_GET *q_get = new Q_GET(desc->getDeviceId());
+        q_get->addToQueue(&addQueue);
+        while(queueToAndroid.empty());
+        if(VAL * val = dynamic_cast<VAL *>(queueToAndroid.front())){
+//            std::cout<<"timestamp: "<<val->getTimestamp()<<std::endl;
+            queueToAndroid.pop();
+            connection->send(val, androidClient->getSesskey());
+            log(3, "val sent");
+            val->print();
+        }
+        else if(NAK * nak = dynamic_cast<NAK *>(queueToAndroid.front())){
+            queueToAndroid.pop();
+            log(2, "nak read from queue, id: %d", nak->getId());
+        }
         //TODO: check if no errors during sending
     }
     EOT * eot = new EOT();
     connection->send(eot, androidClient->getSesskey());
+    log(3, "eot sent");
     //TODO: check if no errors during sendig
 
     return 0;
@@ -496,13 +378,13 @@ int Serwer::servicesSequence(Connection *connection, const AndroidClient *androi
 
 int Serwer::getSequence(Connection *connection, Serwer *serwer, unsigned char ssidValue,
                 GET *get, std::queue<Packet *> *queueToAndroid,
-                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue){
+                std::map<unsigned char, DevDescriptor*> *devices, AddQueue *addQueue){
     if(get->getId()==0){
 //        GET *get_to_queue = new GET(get->getId());
 
         for(auto iter = devices->begin();iter!=devices->end();iter++){
             get->print();
-            GET *get_i = new GET(iter->second.getId());
+            GET *get_i = new GET(iter->second->getId());
             Q_GET * q_get = new Q_GET(get_i->getId());
             q_get->addToQueue(addQueue);
             std::cout<<"sent to server: ";
@@ -529,15 +411,6 @@ int Serwer::getSequence(Connection *connection, Serwer *serwer, unsigned char ss
         /*checking if id is correct*/
         auto iter = devices->find(get->getId());
 
-//        bool id_correct = false;
-//        for(auto dev : *devices){
-//            if(dev.getId() == get->getId()){
-//                id_correct = true;
-//                break;
-//            }
-//        }
-
-//        if(id_correct){
         if(iter != devices->end()) {
             Q_GET *q_get = new Q_GET(get->getId());
             int addedBytes = q_get->addToQueue(addQueue);
@@ -576,18 +449,11 @@ int Serwer::getSequence(Connection *connection, Serwer *serwer, unsigned char ss
 
 int Serwer::setSequence(Connection *connection, const AndroidClient *androidClient, SET *set,
                 std::queue<Packet *> *queueToAndroid,
-                std::map<unsigned char, DevDescriptor> *devices, AddQueue *addQueue){
+                std::map<unsigned char, DevDescriptor*> *devices, AddQueue *addQueue){
 
     std::cout<<"SET id: "<<set->getId()<<"; set value"<<set->getValue()<<std::endl;
 
     /*checking if id is correct*/
-//    bool id_correct = false;
-//    for(auto dev : *devices){
-//        if(dev.getId() == set->getId()){
-//            id_correct = true;
-//            break;
-//        }
-//    }
     auto iter = devices->find(set->getId());
 //    if(id_correct){
     if(iter != devices->end()){
@@ -612,3 +478,50 @@ int Serwer::setSequence(Connection *connection, const AndroidClient *androidClie
 
     return 0;
 }
+
+bool Serwer::testLoginFile(const char *filename) {
+    std::ifstream file;
+    if(!file.is_open()){
+        log(2, "cannot open login file");
+        return false;
+    }
+    std::string login, password;
+    bool fileOK = false;
+    while(file>>login){
+        if(!(file>>password))
+        if(login.size()>30 || password.size()>30){
+            return false;
+        }
+        fileOK = true;
+    }
+
+    return fileOK;
+}
+
+
+int Serwer::loadLoginFile(const char *filename) {
+    std::ifstream file;
+    if(!file.is_open()){
+        return -1;
+    }
+    int readRecords = 0;
+    std::string login, password;
+    //while(file>>)
+
+
+    return readRecords;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
