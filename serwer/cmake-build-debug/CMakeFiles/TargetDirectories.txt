@@ -1,3 +1,0 @@
-/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/s17kf/Pulpit/projekt_tin/serwer/cmake-build-debug/CMakeFiles/serwer.dir
