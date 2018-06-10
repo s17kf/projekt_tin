@@ -17,7 +17,10 @@
 #include "queuePacket.h"
 #include "connection.h"
 
-#include "androidSequentions.h"
+#include "RNG.h"
+#include "sesskey.h"
+#include "androidClient.h"
+#include "log.h"
 
 
 class Serwer {

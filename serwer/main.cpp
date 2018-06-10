@@ -12,7 +12,6 @@
 #include "AddQueue.h"
 #include "ReadQueue.h"
 #include "androidClient.h"
-#include "androidSequentions.h"
 #include "packet.h"
 #include "pubkey.h"
 #include "queuePacket.h"
